@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel detail-panel">
+  <div class="results-head">
+    <div>
+      <p class="eyebrow">Dataset detail</p>
+      <h1>{{ dataset.name }}</h1>
+      <p class="lede">{{ dataset.description or 'No description provided yet.' }}</p>
+    </div>
+    <div class="detail-actions">
+      {% if dataset.local_path %}
+        <a class="button ghost folder-link" href="{{ url_for('open_dataset_folder', dataset_id=dataset.id) }}">Open folder</a>
+        <button class="button ghost" type="button" data-copy-folder="{{ dataset.local_path }}">Copy path</button>
+      {% endif %}
+      <a class="button ghost" href="{{ url_for('edit_dataset', dataset_id=dataset.id) }}">Edit</a>
+      <form method="post" action="{{ url_for('remove_dataset', dataset_id=dataset.id) }}" onsubmit="return confirm('Delete this dataset?');">
+        <button class="button danger" type="submit">Delete</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="detail-layout">
+    <article class="metadata-card">
+      {% if dataset.attachments %}
+        <a class="hero-preview" href="#" data-image-preview="{{ dataset.attachments[0].url }}" data-image-title="{{ dataset.attachments[0].original_filename }}">
+          <img src="{{ dataset.attachments[0].url }}" alt="{{ dataset.attachments[0].original_filename }}">
+        </a>
+      {% else %}
+        <div class="hero-preview fallback">
+          <div class="card-preview-fallback">
+            <span class="fallback-eyebrow">Dataset preview</span>
+            <strong>{{ dataset.name }}</strong>
+            <p>{{ dataset.description or 'No description provided yet.' }}</p>
+            <div class="fallback-meta">
+              <span>{{ dataset.domain or 'Uncategorized' }}</span>
+              <span>{{ dataset.dataset_type or 'Dataset' }}</span>
+              <span>{{ dataset.languages or 'No languages listed' }}</span>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="chips-row">
+        {% if dataset.favorite %}<span class="chip favorite">Important</span>{% endif %}
+        {% if dataset.domain %}<span class="chip">{{ dataset.domain }}</span>{% endif %}
+        {% if dataset.dataset_type %}<span class="chip">{{ dataset.dataset_type }}</span>{% endif %}
+        {% if dataset.format %}<span class="chip">{{ dataset.format }}</span>{% endif %}
+      </div>
+
+      <dl class="meta-grid">
+        <div><dt>Languages</dt><dd>{{ dataset.languages or 'Not specified' }}</dd></div>
+        <div><dt>Source</dt><dd>{% if dataset.source %}<a href="{{ dataset.source }}" target="_blank" rel="noreferrer">Open source</a>{% else %}Not specified{% endif %}</dd></div>
+        <div><dt>Local folder</dt><dd>{% if dataset.local_path %}<a class="folder-link" href="{{ url_for('open_dataset_folder', dataset_id=dataset.id) }}">Open folder</a>{% else %}Not specified{% endif %}</dd></div>
+        <div><dt>Size</dt><dd>{{ dataset.size or 'Not specified' }}</dd></div>
+        <div><dt>License</dt><dd>{{ dataset.license or 'Not specified' }}</dd></div>
+        <div><dt>Tags</dt><dd>{{ dataset.tags or 'Not specified' }}</dd></div>
+        <div><dt>Created</dt><dd>{{ dataset.created_at }}</dd></div>
+        <div><dt>Updated</dt><dd>{{ dataset.updated_at }}</dd></div>
+      </dl>
+
+      <section class="notes-block">
+        <h2>About</h2>
+        <p>{{ dataset.notes or 'No notes yet.' }}</p>
+      </section>
+    </article>
+
+    <aside class="attachments-panel">
+      <div class="attachments-head">
+        <h2>Images and screenshots</h2>
+        <span>{{ dataset.attachments|length }} file(s)</span>
+      </div>
+      {% if dataset.attachments %}
+        <div class="attachments-grid detail-grid">
+          {% for attachment in dataset.attachments %}
+            <figure class="attachment-card">
+              <button class="attachment-preview-button" type="button" data-image-preview="{{ attachment.url }}" data-image-title="{{ attachment.original_filename }}">
+                <img src="{{ attachment.url }}" alt="{{ attachment.original_filename }}">
+              </button>
+              <figcaption>{{ attachment.original_filename }}</figcaption>
+            </figure>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-state inline">
+          <p>No attachments uploaded yet.</p>
+        </div>
+      {% endif %}
+    </aside>
+  </div>
+</section>
+{% endblock %}

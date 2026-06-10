@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <div>
+    <p class="eyebrow">Dashboard</p>
+    <h1> research datasets .</h1>
+    <p class="lede">Track multilingual mental health datasets and any other research collection in one lightweight local catalog.</p>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card">
+      <span>Total datasets</span>
+      <strong>{{ stats.total }}</strong>
+    </div>
+    <div class="stat-card">
+      <span>Favorites</span>
+      <strong>{{ stats.favorites }}</strong>
+    </div>
+    <div class="stat-card">
+      <span>Domains</span>
+      <strong>{{ stats.domains }}</strong>
+    </div>
+  </div>
+</section>
+
+<section class="panel filters-panel">
+  <div class="filters-row">
+    <label class="field search-field">
+      <span>Search</span>
+      <input id="searchInput" type="search" placeholder="Search by name, keyword, notes, or tags">
+    </label>
+    <label class="field">
+      <span>Domain</span>
+      <select id="domainFilter">
+        <option value="">All domains</option>
+        {% for domain in filter_options.domains %}
+          <option value="{{ domain }}">{{ domain }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label class="field">
+      <span>Language</span>
+      <select id="languageFilter">
+        <option value="">All languages</option>
+        {% for language in filter_options.languages %}
+          <option value="{{ language }}">{{ language }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label class="field">
+      <span>Dataset type</span>
+      <select id="typeFilter">
+        <option value="">All types</option>
+        {% for dataset_type in filter_options.dataset_types %}
+          <option value="{{ dataset_type }}">{{ dataset_type }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label class="field">
+      <span>Format</span>
+      <select id="formatFilter">
+        <option value="">All formats</option>
+        {% for dataset_format in filter_options.formats %}
+          <option value="{{ dataset_format }}">{{ dataset_format }}</option>
+        {% endfor %}
+      </select>
+    </label>
+  </div>
+  <div class="filters-row bottom-row">
+    <label class="check">
+      <input id="favoriteOnly" type="checkbox">
+      <span>Favorites only</span>
+    </label>
+    <label class="field sort-field">
+      <span>Order</span>
+      <select id="sortFilter">
+        <option value="created_desc" selected>Newest added</option>
+        <option value="created_asc">Oldest added</option>
+        <option value="updated_desc">Recently updated</option>
+        <option value="name_asc">Name (A-Z)</option>
+      </select>
+    </label>
+    <div class="view-toggle" role="tablist" aria-label="View mode">
+      <button class="button ghost is-active" id="cardsViewBtn" type="button">Cards</button>
+      <button class="button ghost" id="tableViewBtn" type="button">Table</button>
+    </div>
+  </div>
+</section>
+
+<section class="panel results-panel">
+  <div class="results-head">
+    <div>
+      <p class="eyebrow">Collection</p>
+      <h2 id="resultsLabel">All datasets</h2>
+    </div>
+    <p class="results-count" id="resultsCount">Loading...</p>
+  </div>
+  <div id="datasetsGrid" class="datasets-grid"></div>
+  <div id="emptyState" class="empty-state hidden">
+    <h3>No datasets match the current filters.</h3>
+    <p>Add the first dataset or relax the search filters.</p>
+    <a class="button primary" href="{{ url_for('new_dataset') }}">Add dataset</a>
+  </div>
+</section>
+
+<script>
+  window.DATASET_CATALOG = {{ {'apiUrl': url_for('datasets_api')} | tojson }};
+</script>
+{% endblock %}

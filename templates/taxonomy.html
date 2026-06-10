@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="panel taxonomy-panel minimal">
+  <div class="results-head">
+    <div>
+      <p class="eyebrow">Dataset options</p>
+      <h1>Manage dataset options</h1>
+      <p class="lede">Keep a clean list of domains, languages, types, and formats.</p>
+    </div>
+    <a class="button ghost" href="{{ url_for('datasets_index') }}">Back to dashboard</a>
+  </div>
+
+  <div class="taxonomy-grid">
+    <div class="taxonomy-card">
+      <div class="taxonomy-header">
+        <h2>Domains</h2>
+        <form class="taxonomy-add" method="post" action="{{ url_for('taxonomy_add') }}">
+          <input type="hidden" name="category" value="domain">
+          <input name="value" placeholder="Add domain">
+          <button class="button primary tiny" type="submit">Add</button>
+        </form>
+      </div>
+      <div class="taxonomy-table">
+        <div class="taxonomy-table-head">
+          <span>Value</span>
+          <span>Actions</span>
+        </div>
+        {% for item in taxonomy.domains %}
+          <form class="taxonomy-row" method="post" action="{{ url_for('taxonomy_edit', taxonomy_id=item.id) }}">
+            <input name="value" value="{{ item.value }}">
+            <div class="taxonomy-actions">
+              <button class="button ghost tiny" type="submit">Save</button>
+              <button class="button danger tiny" type="submit" formaction="{{ url_for('taxonomy_delete', taxonomy_id=item.id) }}" formmethod="post">Delete</button>
+            </div>
+          </form>
+        {% else %}
+          <p class="muted">No domains yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="taxonomy-card">
+      <div class="taxonomy-header">
+        <h2>Languages</h2>
+        <form class="taxonomy-add" method="post" action="{{ url_for('taxonomy_add') }}">
+          <input type="hidden" name="category" value="language">
+          <input name="value" placeholder="Add language">
+          <button class="button primary tiny" type="submit">Add</button>
+        </form>
+      </div>
+      <div class="taxonomy-table">
+        <div class="taxonomy-table-head">
+          <span>Value</span>
+          <span>Actions</span>
+        </div>
+        {% for item in taxonomy.languages %}
+          <form class="taxonomy-row" method="post" action="{{ url_for('taxonomy_edit', taxonomy_id=item.id) }}">
+            <input name="value" value="{{ item.value }}">
+            <div class="taxonomy-actions">
+              <button class="button ghost tiny" type="submit">Save</button>
+              <button class="button danger tiny" type="submit" formaction="{{ url_for('taxonomy_delete', taxonomy_id=item.id) }}" formmethod="post">Delete</button>
+            </div>
+          </form>
+        {% else %}
+          <p class="muted">No languages yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="taxonomy-card">
+      <div class="taxonomy-header">
+        <h2>Dataset types</h2>
+        <form class="taxonomy-add" method="post" action="{{ url_for('taxonomy_add') }}">
+          <input type="hidden" name="category" value="dataset_type">
+          <input name="value" placeholder="Add type">
+          <button class="button primary tiny" type="submit">Add</button>
+        </form>
+      </div>
+      <div class="taxonomy-table">
+        <div class="taxonomy-table-head">
+          <span>Value</span>
+          <span>Actions</span>
+        </div>
+        {% for item in taxonomy.dataset_types %}
+          <form class="taxonomy-row" method="post" action="{{ url_for('taxonomy_edit', taxonomy_id=item.id) }}">
+            <input name="value" value="{{ item.value }}">
+            <div class="taxonomy-actions">
+              <button class="button ghost tiny" type="submit">Save</button>
+              <button class="button danger tiny" type="submit" formaction="{{ url_for('taxonomy_delete', taxonomy_id=item.id) }}" formmethod="post">Delete</button>
+            </div>
+          </form>
+        {% else %}
+          <p class="muted">No dataset types yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="taxonomy-card">
+      <div class="taxonomy-header">
+        <h2>Formats</h2>
+        <form class="taxonomy-add" method="post" action="{{ url_for('taxonomy_add') }}">
+          <input type="hidden" name="category" value="format">
+          <input name="value" placeholder="Add format">
+          <button class="button primary tiny" type="submit">Add</button>
+        </form>
+      </div>
+      <div class="taxonomy-table">
+        <div class="taxonomy-table-head">
+          <span>Value</span>
+          <span>Actions</span>
+        </div>
+        {% for item in taxonomy.formats %}
+          <form class="taxonomy-row" method="post" action="{{ url_for('taxonomy_edit', taxonomy_id=item.id) }}">
+            <input name="value" value="{{ item.value }}">
+            <div class="taxonomy-actions">
+              <button class="button ghost tiny" type="submit">Save</button>
+              <button class="button danger tiny" type="submit" formaction="{{ url_for('taxonomy_delete', taxonomy_id=item.id) }}" formmethod="post">Delete</button>
+            </div>
+          </form>
+        {% else %}
+          <p class="muted">No formats yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
