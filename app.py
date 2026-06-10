@@ -23,9 +23,15 @@ from flask import (
 )
 from werkzeug.utils import secure_filename
 
+ON_VERCEL = os.environ.get("VERCEL") == "1" or os.environ.get("VERCEL_ENV") is not None
+
 BASE_DIR = Path(__file__).resolve().parent
-INSTANCE_DIR = BASE_DIR / "instance"
-UPLOAD_DIR = BASE_DIR / "uploads"
+if ON_VERCEL:
+    INSTANCE_DIR = Path("/tmp/instance")
+    UPLOAD_DIR = Path("/tmp/uploads")
+else:
+    INSTANCE_DIR = BASE_DIR / "instance"
+    UPLOAD_DIR = BASE_DIR / "uploads"
 DB_PATH = INSTANCE_DIR / "datasets.db"
 ALLOWED_IMAGE_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "webp"}
 
