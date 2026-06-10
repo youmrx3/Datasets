@@ -4,6 +4,7 @@ import csv
 import io
 import json
 import os
+import shutil
 import sqlite3
 import subprocess
 from datetime import datetime
@@ -34,6 +35,7 @@ else:
     UPLOAD_DIR = BASE_DIR / "uploads"
 DB_PATH = INSTANCE_DIR / "datasets.db"
 SEED_DATA_FILE = BASE_DIR / "seed_data.json"
+SEED_UPLOADS_DIR = BASE_DIR / "seed_uploads"
 ALLOWED_IMAGE_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "webp"}
 
 app = Flask(__name__)
@@ -304,6 +306,14 @@ def seed_from_file() -> None:
                         "INSERT OR IGNORE INTO datasets (id, name, description, domain, languages, source, dataset_type, size, format, license, notes, tags, local_path, favorite, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                         (row["id"], row["name"], row.get("description"), row.get("domain"), row.get("languages"), row.get("source"), row.get("dataset_type"), row.get("size"), row.get("format"), row.get("license"), row.get("notes"), row.get("tags"), row.get("local_path"), row.get("favorite", 0), row.get("created_at", timestamp), row.get("updated_at", timestamp)),
                     )
+
+    if SEED_UPLOADS_DIR.exists():
+        UPLOAD_DIR.mkdir(exist_ok=True)
+        for f in SEED_UPLOADS_DIR.iterdir():
+            if f.is_file():
+                dest = UPLOAD_DIR / f.name
+                if not dest.exists():
+                    shutil.copy2(f, dest)
 
 
 def insert_taxonomy(connection: sqlite3.Connection, category: str, value: str, timestamp: str) -> None:
