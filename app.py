@@ -33,6 +33,7 @@ else:
     INSTANCE_DIR = BASE_DIR / "instance"
     UPLOAD_DIR = BASE_DIR / "uploads"
 DB_PATH = INSTANCE_DIR / "datasets.db"
+SEED_DATA_FILE = BASE_DIR / "seed_data.json"
 ALLOWED_IMAGE_EXTENSIONS = {"png", "jpg", "jpeg", "gif", "webp"}
 
 app = Flask(__name__)
@@ -135,6 +136,7 @@ def init_db() -> None:
 @app.before_request
 def prepare_database() -> None:
     init_db()
+    seed_from_file()
     seed_taxonomy_if_needed()
     sync_taxonomy_from_datasets()
     seed_default_formats()
@@ -269,6 +271,39 @@ def seed_default_formats() -> None:
             "UPDATE settings SET value = ? WHERE key = ?",
             ("1", "format_seeded"),
         )
+
+
+def seed_from_file() -> None:
+    if not SEED_DATA_FILE.exists():
+        return
+    with get_db() as connection:
+        count = connection.execute("SELECT COUNT(*) FROM datasets").fetchone()[0]
+        if count > 0:
+            return
+        data = json.loads(SEED_DATA_FILE.read_text(encoding="utf-8"))
+        timestamp = now_iso()
+        for table in ("settings", "taxonomy", "attachments", "datasets"):
+            for row in data.get(table, []):
+                if table == "settings":
+                    connection.execute(
+                        "INSERT OR IGNORE INTO settings (key, value) VALUES (?, ?)",
+                        (row["key"], row["value"]),
+                    )
+                elif table == "taxonomy":
+                    connection.execute(
+                        "INSERT OR IGNORE INTO taxonomy (category, value, created_at) VALUES (?, ?, ?)",
+                        (row["category"], row["value"], row.get("created_at", timestamp)),
+                    )
+                elif table == "attachments":
+                    connection.execute(
+                        "INSERT OR IGNORE INTO attachments (id, dataset_id, filename, original_filename, mime_type, created_at) VALUES (?, ?, ?, ?, ?, ?)",
+                        (row["id"], row["dataset_id"], row["filename"], row["original_filename"], row.get("mime_type"), row.get("created_at", timestamp)),
+                    )
+                elif table == "datasets":
+                    connection.execute(
+                        "INSERT OR IGNORE INTO datasets (id, name, description, domain, languages, source, dataset_type, size, format, license, notes, tags, local_path, favorite, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                        (row["id"], row["name"], row.get("description"), row.get("domain"), row.get("languages"), row.get("source"), row.get("dataset_type"), row.get("size"), row.get("format"), row.get("license"), row.get("notes"), row.get("tags"), row.get("local_path"), row.get("favorite", 0), row.get("created_at", timestamp), row.get("updated_at", timestamp)),
+                    )
 
 
 def insert_taxonomy(connection: sqlite3.Connection, category: str, value: str, timestamp: str) -> None:

@@ -1,0 +1,700 @@
+{
+  "datasets": [
+    {
+      "id": 9,
+      "name": "Shifaa_Arabic_Mental_Health_Consultations",
+      "description": "Shifaa Arabic Mental Health Consultations is a high-quality dataset\r\n designed to advance Arabic medical language models.\r\nThis dataset provides 35,648 real-world medical consultations, covering a wide range of mental health concerns.",
+      "domain": "Mental health",
+      "languages": "Arabic",
+      "source": "https://huggingface.co/datasets/Ahmed-Selem/Shifaa_Arabic_Mental_Health_Consultations",
+      "dataset_type": "Text",
+      "size": "35,648 consultations / 206 MB",
+      "format": "CSV",
+      "license": "",
+      "notes": "\ud83d\udcca Dataset Summary\r\nSize: 35,648 consultations\r\nMain Specializations: 7\r\nSpecific Diagnoses: 123\r\nLanguages: Arabic (\u0627\u0644\u0639\u0631\u0628\u064a\u0629)\r\nWhy This Dataset?\r\n\ud83d\udd39 Lack of Arabic medical data: Most NLP datasets focus on English, leaving a gap in Arabic medical AI.\r\n\ud83d\udd39 Detailed Q&A format: Answers provide in-depth context on symptoms, diagnoses, and treatments.\r\n\ud83d\udd39 Structured Hierarchy: Data is categorized into Main Specialization \u2192 Specific Diagnosis.\r\n\ud83d\udd39 High Quality: Data is cleaned, free from missing values & duplicates.\r\n\r\n\ud83d\udcc2 Dataset Features\r\nEach row in the dataset contains:\r\n\r\nColumn Name\tDescription\r\nQuestion Title\tShort summary of the consultation\r\nQuestion\tFull question asked by the patient\r\nAnswer\tDoctor\u2019s detailed response\r\nDoctor Name\tName of the responding doctor\r\nConsultation Number\tUnique consultation identifier\r\nDate of Answer\tWhen the answer was provided\r\nHierarchical Diagnosis\tMain Specialization \u2192 Specific Diagnosis\r\n\ud83d\uddbc\ufe0f Data Distribution\r\nData Distribution\r\n\r\n7 Main Specializations (e.g., Depression, Anxiety, PTSD)\r\n123 Specific Diagnoses categorized under specializations\r\nVaried Question Lengths ranging from short inquiries to complex cases",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-05-05T14:50:31Z",
+      "updated_at": "2026-06-05T16:08:13Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\Shifaa_Arabic_Mental_Health_Consultations"
+    },
+    {
+      "id": 11,
+      "name": "Mental Health Darija",
+      "description": "Mental Health Darija is a multilingual (English and Moroccan Darija) dataset for mental health text classification. Each example contains parallel text: an English sentence (text_en) and its Darija (Moroccan Arabic) translation (text), with a single label indicating the mental health category. The dataset supports classification into seven categories: Anxiety, Bipolar, Depression, Normal, Personality disorder, Stress, and Suicidal. It is intended for research and applications in mental health detection and support in under-resourced languages.",
+      "domain": "Mental health",
+      "languages": "Multi",
+      "source": "https://huggingface.co/datasets/moujar/MentalHealth-Darija",
+      "dataset_type": "text",
+      "size": "51,093 examples / 52.72 MB",
+      "format": "csv",
+      "license": "",
+      "notes": "Supported Tasks and Leaderboards\r\nText classification (multi-class): predict the mental health category from either the English or Darija text (or both).\r\nSuitable for benchmarking emotion/mental-health classification and for training or fine-tuning models on Darija.\r\nLanguages\r\nEnglish (text_en): source or translated statements.\r\nMoroccan Darija (text): Moroccan Arabic dialect; primary target language for the dataset.\r\nDataset Structure\r\nData Instances\r\nAn example looks as follows.\r\n\r\n{\r\n  \"text_en\": \"I've been so restless lately.\",\r\n  \"text\": \"\u0643\u0646\u062d\u0633 \u0628\u0631\u0627\u0633\u064a \u0645\u0642\u0644\u0642 \u0647\u0627\u062f \u0627\u0644\u0623\u064a\u0627\u0645\",\r\n  \"label\": \"Anxiety\"\r\n}\r\n\r\nData Fields\r\nField\tType\tDescription\r\ntext_en\tstring\tEnglish text (statement or translation).\r\ntext\tstring\tMoroccan Darija text (statement or translation).\r\nlabel\tstring\tMental health category (one of 7 classes).\r\nLabel set: Anxiety, Bipolar, Depression, Normal, Personality disorder, Stress, Suicidal.\r\n\r\nText length (characters): Darija text \u2014 min 2, max 1571, mean ~275; English text_en \u2014 min 2, max 32759, mean ~576.\r\n\r\nData Splits\r\nThe dataset is provided as a single split (no predefined train/validation/test split). Total: 51,093 examples.\r\n\r\nlabel\tcount\r\nAnxiety (0)\t3,623\r\nNormal (1)\t16,040\r\nDepression (2)\t15,094\r\nSuicidal (3)\t10,644\r\nStress (4)\t2,296\r\nBipolar (5)\t2,501\r\nPersonality disorder (6)\t895\r\nTotal\t51,093\r\nRecommended: create your own train/validation/test split (e.g. 80/10/10) with stratification on label for balanced evaluation.\r\n\r\nDataset Creation\r\nCuration Rationale\r\nThe dataset was created to support mental health detection and NLP research in Moroccan Darija, a low-resource dialect, by providing parallel English\u2013Darija text with mental health labels.\r\n\r\nSource Data\r\nInitial Data Collection and Normalization\r\nMore Information Needed\r\n\r\nWho are the source language producers?\r\nMore Information Needed\r\n\r\nAnnotations\r\nAnnotation process\r\nLabels correspond to mental health categories (Anxiety, Bipolar, Depression, Normal, Personality disorder, Stress, Suicidal). More Information Needed on annotation protocol and guidelines.\r\n\r\nWho are the annotators?\r\nMore Information Needed\r\n\r\nPersonal and Sensitive Information\r\nThe dataset contains mental health\u2013related text. It may include sensitive or distressing content. Use in accordance with ethical guidelines and applicable data protection regulations.\r\n\r\nConsiderations for Using the Data\r\nSocial Impact of Dataset\r\nThis dataset can support tools for mental health awareness and triage in Darija-speaking communities. Models trained on it should be used as research or decision-support aids only, not as substitutes for professional care.\r\n\r\nDiscussion of Biases\r\nClass distribution is imbalanced (e.g. Depression and Normal have the most examples; Personality disorder has the fewest). Consider stratified sampling, class weights, or resampling when training and evaluating models.\r\n\r\nOther Known Limitations\r\nNo official train/validation/test split; users should define their own.\r\nText length in text_en is highly variable (including some very long entries); preprocessing or truncation may be needed for fixed-length models.\r\nAdditional Information\r\nDataset Curators\r\nAbderrahmane Moujar and Otmane El Bourki. Dataset repository: moujar,oelbourki on Hugging Face.\r\n\r\nLicensing Information\r\nThis dataset is licensed under the MIT License. Use for educational and research purposes is encouraged; ensure compliance with the license and any applicable ethics and privacy requirements.\r\n\r\nCitation Information\r\nIf you use this dataset, please cite the dataset repository:\r\n\r\n@misc{mental-health-darija,\r\n  author = {Abderrahmane Moujar and Otmane El Bourki},\r\n  title = {Mental Health Darija},\r\n  year = {2025},\r\n  publisher = {Hugging Face},\r\n  url = {https://huggingface.co/datasets/moujar/MentalHealth-Darija},\r\n}",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-05-05T21:20:42Z",
+      "updated_at": "2026-05-05T21:20:42Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\MentalHealth-Darija"
+    },
+    {
+      "id": 12,
+      "name": "Chezlong",
+      "description": "Technology has opened up a new era of mental health care and information gathering, providing new means to access aid, connect to a peer counselor, and track progress. Chezlong is an Arabic text-based chatbot powered by the most modern NLP techniques. It aims to give guidance to those who need quick mental support. The development cycle is based on using the GPT-3.5 Large Language Model for Retrieval Augmented Generation (RAG). RAG is used on Arabic psychological articles, originally scraped from the nafsy.net website. Cleaning, preprocessing, and topic modeling have been applied to prepare and explore the dataset. The chunked dataset is stored as vectors in Pinecone. Similarity search is done to retrieve query-related source knowledge from the dataset to answer a user query.",
+      "domain": "Mental health",
+      "languages": "Arabic",
+      "source": "https://github.com/MuhammadHelmyOmar/Chezlong",
+      "dataset_type": "text",
+      "size": "664 samples / 6.8 MB",
+      "format": "csv",
+      "license": "",
+      "notes": "Cleaned and preprocessed Arabic psychological texts scraped from nafsy.net using NLTK and HuggingFace.\r\nApplied BERTopic modeling to explore topic distributions and deduplicate the data.\r\nSynthesized a QA dataset from the original corpus using GPT to support potential fine-tuning.\r\nStored chunked text embeddings in Pinecone to enable scalable and efficient semantic search.\r\nImplemented similarity search to retrieve contextually relevant passages for user queries.\r\nPrompt-engineered the engine's query to integrate GPT-3.5 with Retrieval Augmented Generation (RAG), ensuring domain-relevant answers.\r\nConnected all previous components within a LangChain pipeline for end-to-end user query handling.\r\nExperimented with multiple LLMs and semantic embedding models to optimize performance for Arabic.",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-05-05T22:05:28Z",
+      "updated_at": "2026-05-15T22:03:20Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\Chezlong"
+    },
+    {
+      "id": 13,
+      "name": "MedQA-Darija-MultiLingual",
+      "description": "MedQA-Darija-MultiLingual\r\nThe largest open trilingual medical Q&A dataset with directly-playable speech audio for English, French, and Moroccan Darija.\r\n\r\nA research dataset for the BRAIN HEALTH initiative, designed for multilingual medical NLP, low-resource speech recognition, healthcare chatbots, and clinical education tools targeting Morocco and the broader Maghreb region.",
+      "domain": "Mental health",
+      "languages": "Arabic, french, english",
+      "source": "https://huggingface.co/datasets/Williamsanderson/MedQA-Darija-MultiLingual",
+      "dataset_type": "text,audio",
+      "size": "267,627 samples / 100 GB",
+      "format": "Parquet",
+      "license": "",
+      "notes": "At a glance\r\nProperty\tValue\r\nTotal Q&A pairs\t267,627\r\nSpecialties covered\t71\r\nLanguages\tEnglish \u00b7 French \u00b7 Moroccan Darija (Arabic script)\r\nAudio modality\t6 MP3 per row (Q+A \u00d7 3 languages)\r\nReal-world data\t163,488 pairs (open medical corpus + iCliniq scraped)\r\nSynthetic data\t104,139 pairs (multi-LLM generated, validated)\r\nAudio files\t427k MP3 (91 GB) on Hugging Face Xet storage\r\nTotal file size\t~94 GB\r\nConfigurations\r\ndefault \u2014 Synthetic (104,139 rows)\r\nTrilingual synthetic Q&A generated by multiple LLM providers (Mistral, Cerebras, Groq, GPT-4o-mini, OpenRouter). Every row carries six audio cells (Q+A in EN/FR/Darija), playable directly in the Hugging Face Viewer.\r\n\r\nreal \u2014 Real-world scraped (163,488 rows)\r\nReal medical Q&A scraped from the open medical web. Two sub-sources:\r\n\r\nscraped_icliniq (3,383 rows) \u2014 patient questions and licensed-doctor answers from publicly available iCliniq.com pages, manually trilingualized and audio-rendered.\r\nopen_medical_corpus (160,105 rows) \u2014 open medical corpora translated trilingually.\r\niCliniq rows appear first in the real split; both sub-sources share identical schema with audio columns (audio cells are populated where speech files are available, else null).\r\n\r\nSchema (per row)\r\nA single row contains the same medical content in three languages plus six speech audio cells:\r\n\r\nColumn\tType\tDescription\r\npair_id\tstring\tMD5-derived unique identifier\r\nspecialty_id\tstring\tmedical specialty slug (e.g. cardiology)\r\nsource\tstring\tdata source (synthetic_*, scraped_icliniq, open_medical_corpus)\r\nquestion_en / answer_en\tstring\tEnglish Q & A\r\nquestion_fr / answer_fr\tstring\tFrench Q & A\r\nquestion_darija / answer_darija\tstring\tMoroccan Darija (Arabic script) Q & A\r\naudio_question_en / audio_answer_en\tAudio\tEN MP3, patient voice / doctor voice\r\naudio_question_fr / audio_answer_fr\tAudio\tFR MP3\r\naudio_question_darija / audio_answer_darija\tAudio\tDarija MP3\r\nThe Hugging Face Viewer renders the six audio columns as inline players, so a reviewer can read the trilingual text and listen to the spoken version side-by-side.\r\n\r\nData quality & cleaning\r\nPoliteness-formula stripping\r\nWe removed boilerplate that does not carry clinical content (research-grade preprocessing):\r\n\r\nGreeting prefixes: \"Hi/Hello/Bonjour/\u0623\u0647\u0644\u0627 [doctor]\" at the start of an answer\r\n\"Welcome to icliniq.com\" salutations\r\nClosing wishes: \"Take care\", \"Hope this helps\", \"Best regards\", \"Prenez soin de vous\", \"\u062a\u0645\u0646\u064a\u0627\u062a\u064a \u0644\u064a\u0643 \u0628\u0627\u0644\u0634\u0641\u0627\u0621\", etc.\r\nWe keep clinical content fully intact: dosages, diagnoses, mechanism explanations, clinical reasoning, and safety advice are never modified.\r\n\r\nThree-stage validation pipeline\r\nEvery synthetic pair is required to pass:\r\n\r\nStage 1 \u2014 Representation Learning (LOF in PubMedBERT space). Embeddings of (question_en, answer_en) are scored by Local Outlier Factor; pairs with anomaly score < \u22120.1 are rejected as off-topic / hallucinatory.\r\nStage 2 \u2014 Causal Consistency (DoWhy DAG). A causal model symptom_complexity \u2192 diagnosis_confidence \u2192 treatment_specificity flags pairs where rich diagnoses pair with vague treatments, or vice versa.\r\nStage 3 \u2014 Linguistic & medical NER coverage. Darija fields must be \u2265 35 % Arabic characters (rejects Arabizi); French must be \u2265 60 % ASCII; medical entity density per pair is recorded.\r\niCliniq trilingual translations are produced via a fine-tuned MarianMT model (ychafiqui/english-to-darija-2) for Darija and a medical-prompted LLM for French. Each iCliniq pair is translated single-pair (no batched alignment errors) and passes the same three-stage validation.\r\n\r\nAudio\r\nGenerated with Microsoft Edge Neural TTS (ar-MA-Jamal/Mouna, fr-FR-Henri/Denise, en-US-Guy/Jenny).\r\nStored as standalone MP3 referenced from each row's audio columns; Hugging Face's Audio feature handles seamless decoding and inline playback.\r\nSpecialty coverage\r\n71 specialties spanning general medicine, surgery, paediatrics, oncology, dermatology, mental health, dentistry, radiology, etc. Each specialty has between 100 and 8,800 pairs depending on real-world data density.\r\n\r\n(Full per-specialty table is regenerated automatically and lives in _spec_breakdown.md of the source repo.)",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-05-16T22:33:45Z",
+      "updated_at": "2026-05-16T23:15:13Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\MentalHealth-Darija"
+    },
+    {
+      "id": 15,
+      "name": "kurtis_mental_health_final",
+      "description": "Dataset Sources\r\nThe data is aggregated from the following datasets:\r\n\r\ndatasets/mrs83/kurtis_mental_health\r\ndatasets/fadodr/mental_health_therapy\r\ndatasets/marmikpandya/mental-health\r\nThe data has been augmentated by running summarization tasks on the initial question and answer pairs, using a sharded flan-t5-xxl model philschmid/flan-t5-xxl-sharded-fp16",
+      "domain": "Mental health",
+      "languages": "english",
+      "source": "https://huggingface.co/datasets/mrs83/kurtis_mental_health_final",
+      "dataset_type": "text",
+      "size": "11491 samples / 6.95 MB",
+      "format": "Parquet",
+      "license": "",
+      "notes": "Uses\r\nDirect Use\r\nThe dataset is intended for use in training conversational AI models, particularly in mental health and therapeutic support scenarios. It provides synthetic examples that can be used for initial training, allowing the model to learn basic patterns in mental health dialogue.\r\n\r\nSuitable use cases include:\r\n\r\nTraining chatbots for mental health support.\r\nFine-tuning existing conversational models to understand mental health-related topics.\r\nEvaluating a model's capability to generate empathetic responses in a mental health context.\r\nOut-of-Scope Use\r\nThis dataset should not be used for:\r\n\r\nMaking critical mental health decisions or diagnoses.\r\nReplacing professional mental health services.\r\nApplications where responses require regulatory compliance or are highly sensitive.\r\nGenerating responses without human supervision, especially in contexts that involve vulnerable individuals.\r\nMisuse of this dataset could lead to providing inappropriate or harmful responses, so it should not be deployed without proper safeguards in place.\r\n\r\nDataset Structure\r\nThe dataset consists of question-answer pairs in a JSON-like structure. It includes the following fields:\r\n\r\nquestion: The prompt or question related to mental health (e.g., a user asking for advice).\r\nanswer: The response.\r\nsummary: The question and answer summary.\r\nanswer_summary: The answer summary.\r\nThe dataset is split into \"train\" sets, containing up to 4500 samples, each with a maximum token length of 512.\r\n\r\nDataset Creation\r\nCuration Rationale\r\nThe dataset was created to provide an initial foundation for conversational AI models focused on mental health support. The primary goal was to develop a diverse and rich dataset that combines synthetic and curated examples, simulating realistic conversations that can be used for training and evaluation.\r\n\r\nThis dataset enables training models that can provide empathetic, helpful, and contextually appropriate responses, contributing to AI systems that support mental health discussions in a safe manner",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-05-18T20:37:48Z",
+      "updated_at": "2026-05-18T20:38:30Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\kurtis\\kurtis_mental_health_final"
+    },
+    {
+      "id": 16,
+      "name": "mental_health_therapy",
+      "description": "This dataset is a combination of a real-therapy conversation from a conselchat forum and a synthetic discussion generated with chatGpt.",
+      "domain": "Mental health",
+      "languages": "english",
+      "source": "https://huggingface.co/datasets/fadodr/mental_health_therapy",
+      "dataset_type": "Text",
+      "size": "12,258 samples / 17.2 mb",
+      "format": "Parquet",
+      "license": "",
+      "notes": "This dataset was obtained from the following repository and cleaned to make it anonymized and remove convo that is not relevant:\r\n\r\nhttps://huggingface.co/datasets/nbertagnolli/counsel-chat?row=9\r\nhttps://huggingface.co/datasets/Amod/mental_health_counseling_conversations\r\nhttps://huggingface.co/datasets/ShenLab/MentalChat16K",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-06-05T16:05:31Z",
+      "updated_at": "2026-06-05T16:14:26Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\mental_health_therapy"
+    },
+    {
+      "id": 17,
+      "name": "counsel-chat",
+      "description": "Dataset Summary\r\nScrape of Counselchat.com's forum. CounselChat.com is an example of an expert community. It is a platform to help counselors build their reputation and make meaningful contact with potential clients. On the site, therapists respond to questions posed by clients, and users can like responses that they find most helpful. It\u2019s a nice idea and lends itself to some interesting data. This data contains expert responses by licensed clinicialns to questions posed by individuals.",
+      "domain": "Mental health",
+      "languages": "english",
+      "source": "https://huggingface.co/datasets/nbertagnolli/counsel-chat",
+      "dataset_type": "Text",
+      "size": "2775 samples / 4.14 MB",
+      "format": "CSV",
+      "license": "",
+      "notes": "Data Fields\r\nquestionID \u2014 A unique question identifier which is distinct for every question\r\nquestionTitle \u2014 The title of the question on counsel chat\r\nquestionText \u2014 The body of the individual\u2019s question to counselors\r\nquestionLink \u2014 A URL to the last location of that question (might not still be active)\r\ntopic \u2014 The topic the question was listed under\r\ntherapistInfo \u2014 The summary of each therapist, usually a name and specialty\r\ntherapistURL \u2014 a link to the therapist\u2019s bio on counselchat\r\nanswerText \u2014 The therapist response to the question\r\nupvotes \u2014 The number of upvotes the answerText received\r\nsplit \u2014 The data split for training, validation, and testing.\r\n\r\nDataset Creation\r\nCuration Rationale\r\nThere is a lack of high quality open source mental health data available for study in NLP. Most datasets revolve around forums like Reddit, which can provide great insights, but don't capture the type of language often used by counselors. This dataset seeks to help bridge that gap and provide some additional data of counselors interacting with patients in need.\r\n\r\nSource Data\r\nThe dataset was scraped on 20220401 from counselchat.com.\r\n\r\nInitial Data Collection and Normalization\r\nThe dataset was scraped on 20220401 from counselchat.com. The data is in it's raw form and has not been normalized.\r\n\r\nWho are the source language producers?\r\nThe text was written by licensed counselors in the United States and annonymous individuals.\r\n\r\nAnnotations\r\nThe dataset does not contain any additional annotations.\r\n\r\nPersonal and Sensitive Information\r\nThis data is not anonymized, so individuals' names can be found in the dataset. CounselChat.com allows therapists to advertise for their clinics by providing sound publicly available advise. The therapist names have been kept as part of the original dataset.",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-06-05T16:26:51Z",
+      "updated_at": "2026-06-05T16:26:51Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\counsel-chat"
+    },
+    {
+      "id": 18,
+      "name": "mental_health_counseling_conversations",
+      "description": "This dataset is a compilation of high-quality, real one-on-one mental health counseling conversations between individuals and licensed professionals. Each exchange is structured as a clear question\u2013answer pair, making it directly suitable for fine-tuning or instruction-tuning language models that need to handle sensitive, empathetic, and contextually aware dialogue.",
+      "domain": "Mental health",
+      "languages": "english",
+      "source": "https://huggingface.co/datasets/Amod/mental_health_counseling_conversations",
+      "dataset_type": "Text",
+      "size": "3512 samples / 4.81 MB",
+      "format": "JSON",
+      "license": "",
+      "notes": "Since its public release in 2023, it has been downloaded over 100,000 times (As of Nov 2025); hitting 10,000+ downloads in Nov 2025 alone. The data is provided in a clean format, allowing for straightforward integration into training pipelines with minimal preprocessing.\r\n\r\nDataset Summary\r\nThis dataset is a collection of real counselling question-and-answer pairs taken from two public mental-health platforms.\r\nIt is intended for training and evaluating language models that provide safer, context-aware mental-health responses.\r\n\r\nSupported Tasks\r\nText generation and question-answering with an advice-giving focus.\r\n\r\nLanguages\r\nEnglish (en)\r\n\r\nDataset Structure\r\nData Instances\r\nEach instance contains:\r\n\r\nContext \u2013 the user\u2019s question\r\nResponse \u2013 the psychologist\u2019s answer\r\nData Fields\r\nContext :string\r\nResponse :string\r\nData Splits\r\nNo predefined splits. Users may create their own.\r\n\r\nDataset Creation\r\nCuration Rationale\r\nCreated to advance AI systems that deliver compassionate, evidence-based mental-health guidance.\r\nAll data were anonymised and retained verbatim to preserve conversational integrity.\r\n\r\nSource Data\r\nCollected directly from two publicly accessible counselling websites; no private or paid sources were used.\r\n\r\nPersonal and Sensitive Information\r\nContent is sensitive by nature. All personally identifiable information has been removed during curation.\r\n\r\nLicence and Commercial-Use Terms\r\nThis dataset is released under RAIL-D.\r\n\r\nFree non-commercial research use\r\nAcademic, scientific, educational and other non-profit uses are royalty-free. Users must comply with the ethical restrictions in LICENSE-RAIL-D.txt.\r\n\r\nCommercial use \u2014 mandatory donation\r\nAny commercial use requires a donation of USD 100 or more to the CCC Foundation mental-health helpline.\r\nDonation page: https://1333.lk/donations\r\nEmail proof of donation to amodsahabandu@icloud.com within thirty (30) days before or after first commercial deployment.\r\nCommercial rights terminate automatically if proof is not provided.\r\n\r\nNo content modification\r\nFiltering or subsetting is allowed, but individual question-and-answer pairs must not be rewritten, deleted, or altered.\r\n\r\nRedistribution\r\nPermitted only in the original, unmodified form and with this licence attached.\r\n\r\nThe full legal text is provided in LICENSE-RAIL-D.txt within this repository.",
+      "tags": "",
+      "favorite": 1,
+      "created_at": "2026-06-05T16:31:49Z",
+      "updated_at": "2026-06-05T16:31:49Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\mental_health_counseling_conversations"
+    },
+    {
+      "id": 19,
+      "name": "MentalChat16K",
+      "description": "This dataset consists of 9,775 synthetic conversations between a counselor and a client, covering 33 mental health topics such as \ud83d\udc91 Relationships, \ud83d\ude1f Anxiety, \ud83d\ude14 Depression, \ud83e\udd17 Intimacy, and \ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66 Family Conflict. The conversations were generated using the OpenAI GPT-3.5 Turbo model and a customized adaptation of the Airoboros self-generation framework.",
+      "domain": "Mental health",
+      "languages": "english",
+      "source": "https://huggingface.co/datasets/ShenLab/MentalChat16K",
+      "dataset_type": "Text",
+      "size": "16.084 samples / 46.4 MB",
+      "format": "CSV",
+      "license": "",
+      "notes": "The Airoboros framework was used to create a new prompt that provided clear instructions for generating patient queries. These queries were then fed back into the GPT-3.5 Turbo model to generate corresponding responses. The proportion of each topic was specified in the prompt to ensure the synthetic conversations authentically mimic the complexity and diversity of human therapist-client interactions.\r\n\r\nThis dataset aims to equip language models with exposure to a wide spectrum of psychological conditions and therapeutic strategies, enabling them to engage in more realistic and effective counseling conversations. \ud83e\udde0\r\n\r\nInterview Data 6K\r\nThis dataset consists of 6338 question-answer pairs from 378 interview transcripts. The transcripts are collected from an ongoing clinical trial transcribed by human experts based on audio recordings of behavioral intervention sessions between behavior health coaches and caregivers of individuals in palliative or hospice care\r\n\r\nWe employed the local Mistral-7B-Instruct-v0.2 model, which is a state-of-the-art lightweight LLM to paraphrase and summarize interview transcripts documents. We fed each page of transcripts into the model and provided instructions (see Table 1) to summarize the page into a single round of conversation between the caregiver and the behavioral health coach. Subsequently, we filtered out any conversations with less than 40 words in the question and answer.\r\n\r\n\ud83d\udcca Dataset Characteristics\r\nNumber of Conversations: 9,775 \ud83d\udde3\ufe0f\r\nTopics Covered: \ud83d\udc91 Relationships, \ud83d\ude1f Anxiety, \ud83d\ude14 Depression, \ud83e\udd17 Intimacy, \ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66 Family Conflict, and 28 other mental health topics\r\nLanguage: English \ud83c\uddfa\ud83c\uddf8\r\nGeneration Method: OpenAI GPT-3.5 Turbo model with a customized Airoboros self-generation framework\r\n\ud83e\udd16 Dataset Usage\r\nThis dataset can be used to train and evaluate language models for counseling and mental health applications, such as chatbots, virtual assistants, and dialogue systems. It provides a diverse and realistic set of conversational scenarios that can help improve the models' understanding of psychological conditions and therapeutic strategies.\r\n\r\n\ud83c\udf0d Dataset Limitations\r\nThe dataset is entirely synthetic and may not fully capture the nuances and complexities of real-world counseling conversations. Additionally, the dataset is limited to English language conversations and may not be representative of diverse cultural and linguistic contexts.",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-06-05T16:55:13Z",
+      "updated_at": "2026-06-05T16:55:13Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\MentalChat16K"
+    },
+    {
+      "id": 20,
+      "name": "mental-health",
+      "description": "",
+      "domain": "",
+      "languages": "english",
+      "source": "https://huggingface.co/datasets/marmikpandya/mental-health",
+      "dataset_type": "Text",
+      "size": "13,358 samples / 10.1 MB",
+      "format": "JSON",
+      "license": "",
+      "notes": "",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-06-05T16:58:04Z",
+      "updated_at": "2026-06-05T16:58:04Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\mental-health"
+    },
+    {
+      "id": 21,
+      "name": "arnaiztech/llms-mental-health-crisis-responses",
+      "description": "Dataset Card for Between Help and Harm - Responses and Evaluations\r\nDataset Summary\r\nThis dataset repo contains the response-side artifacts prepared for Hugging Face from the paper Between Help and Harm: An Evaluation of Mental Health Crisis Handling by LLMs, published in JMIR Mental Health.\r\n\r\nIf you use this dataset, please cite the paper. The citation is included below, the arXiv version is available at https://arxiv.org/abs/2509.24857, and the final DOI is allocated as https://doi.org/10.2196/88435.",
+      "domain": "Mental health",
+      "languages": "english",
+      "source": "https://huggingface.co/datasets/arnaiztech/llms-mental-health-crisis-responses",
+      "dataset_type": "Text",
+      "size": "194,856 samples / 335 MB",
+      "format": "JSON",
+      "license": "",
+      "notes": "It is organized around the response-level evaluation task:\r\n\r\nresponses/: model responses aligned to canonical example_id\r\nevaluations/human_raw/: anonymized human appropriateness scores on the validation subset\r\nevaluations/llm_raw/: raw evaluator-model judgments on model responses\r\nevaluations/llm_merged/: merged evaluator outputs with per-response aggregate statistics\r\nevaluations/sampled_review_sets/: sampled low-score review subsets used for agreement analysis\r\nThe export preserves the real source JSON structure where possible and adds deterministic response_id and evaluation_id fields so the tables can be joined reliably.\r\n\r\nRepository Structure\r\n.\r\n\u251c\u2500\u2500 README.md\r\n\u251c\u2500\u2500 responses/\r\n\u2502   \u251c\u2500\u2500 validation/\r\n\u2502   \u2514\u2500\u2500 test/\r\n\u251c\u2500\u2500 evaluations/\r\n\u2502   \u251c\u2500\u2500 human_raw/\r\n\u2502   \u251c\u2500\u2500 llm_raw/\r\n\u2502   \u251c\u2500\u2500 llm_merged/\r\n\u2502   \u2514\u2500\u2500 sampled_review_sets/\r\n\u251c\u2500\u2500 metadata/\r\n\u2502   \u251c\u2500\u2500 export_summary.json\r\n\u2502   \u251c\u2500\u2500 normalization.json\r\n\u2502   \u2514\u2500\u2500 provenance.json\r\n\u2514\u2500\u2500 checksums/\r\n    \u2514\u2500\u2500 sha256_manifest.json\r\n\r\nIncluded Configurations\r\nresponses: all response tables for validation and test\r\nhuman_raw_scores: anonymized human appropriateness scores on the validation subset\r\nsampled_review_sets: sampled evaluator subsets used for manual comparison\r\nllm_raw_evaluations_*: raw evaluator runs grouped by evaluator model\r\nllm_merged_evaluations_*: merged evaluator outputs grouped by evaluator model\r\nRow Counts\r\neach validation response file: 618 rows\r\neach test response file: 6,138 rows\r\neach validation raw evaluator file: 1,854 rows\r\neach test raw evaluator file under gpt-4o-mini: 18,414 rows\r\neach merged validation evaluator file: 618 rows\r\neach merged test evaluator file under gpt-4o-mini: 6,138 rows\r\nevaluations/human_raw/validation/H1.parquet: 206 rows\r\nevaluations/human_raw/validation/H2.parquet: 206 rows\r\neach sampled review file: 206 rows\r\nSchema Notes\r\nKey columns include:\r\n\r\nresponse_id: deterministic export ID for one model response to one example\r\nexample_id: foreign key to the benchmark repo\r\nanswer_model_raw / answer_model\r\nevaluator_model_raw / evaluator_model\r\nresponse_text\r\nscore, score_runs, score_std\r\nsource_* columns for provenance\r\nSome source JSON rows stored answer payloads or explanations as non-string objects. Those were serialized safely into strings for Parquet compatibility while preserving the original content.\r\n\r\nLoading Examples\r\nfrom datasets import load_dataset\r\n\r\nresponses = load_dataset(\"your-username/llms-mental-health-crisis-responses\", \"responses\")\r\nhuman_scores = load_dataset(\"your-username/llms-mental-health-crisis-responses\", \"human_raw_scores\")\r\nraw_eval = load_dataset(\"your-username/llms-mental-health-crisis-responses\", \"llm_raw_evaluations_gpt_4o_mini\")\r\n\r\nIntended Uses\r\nThis repo is intended for:\r\n\r\nanalysis of LLM responses to crisis-related conversations\r\nappropriateness and agreement studies\r\nevaluator-model comparison\r\nreproducing the response-quality analyses in the paper\r\nIt is not intended to be used as direct therapeutic advice or as a substitute for clinical review.\r\n\r\nProvenance\r\nexported from the original repository JSON files\r\njoins validated against inputs and, where needed, answer text\r\nintegrity metadata stored in metadata/provenance.json\r\nper-file digests stored in checksums/sha256_manifest.json",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-06-05T21:35:46Z",
+      "updated_at": "2026-06-05T21:35:46Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\llms-mental-health-crisis-responses"
+    },
+    {
+      "id": 22,
+      "name": "arafatanam/Student-Mental-Health-Counseling-10K",
+      "description": "Dataset Overview\r\nThis dataset is derived from the original chillies/student-mental-health-counseling-vn dataset, which contains student mental health counseling conversations in Vietnamese.\r\n\r\nIn this version, 10,000 randomly sampled rows from the original dataset have been translated into English using Google Translator, making the data more accessible for English-speaking researchers and developers.",
+      "domain": "Mental health",
+      "languages": "",
+      "source": "",
+      "dataset_type": "Text",
+      "size": "10,000 samples / 4.66 MB",
+      "format": "CSV",
+      "license": "",
+      "notes": "Dataset Details\r\nDataset Name: arafatanam/Student-Mental-Health-Counseling-10K\r\nSource Dataset: chillies/student-mental-health-counseling-vn\r\nLanguage: Translated from Vietnamese to English\r\nSample Size: 10,000 rows\r\nTranslation Tool: GoogleTranslator (deep_translator)\r\nFormat: CSV (originally saved) and auto-converted to Parquet by Hugging Face for convenience\r\nProcessing Steps\r\nThe dataset was prepared using the following steps:\r\n\r\nLoaded the original dataset using the datasets library.\r\nRandomly sampled 10,000 rows for translation.\r\nApplied GoogleTranslator (deep_translator) to convert text from Vietnamese to English.\r\nSaved the translated dataset as a CSV file.\r\n\r\nUsage\r\nThis dataset can be used for:\r\n\r\nMental Health Chatbots: Developing AI-driven support systems.\r\nSentiment Analysis: Analyzing emotional tones in student counseling sessions.\r\nNatural Language Processing (NLP): Training models for mental health-related text understanding.\r\nLicense\r\nThis dataset is released under the Apache 2.0 License.\r\nPlease ensure compliance with licensing terms, especially regarding modifications and redistribution.\r\nFor more details, refer to the original dataset's license.",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-06-05T22:02:50Z",
+      "updated_at": "2026-06-05T22:02:50Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\Student-Mental-Health-Counseling-10K"
+    },
+    {
+      "id": 23,
+      "name": "AraDepSu",
+      "description": "This dataset comprises 15,000 Arabic-language tweets manually annotated for depression-related content. Each tweet is labeled as either \"Depression\" or \"Non-depression,\" with additional binary flags indicating the presence of negation and intensifiers\u2014two key linguistic features often associated with emotional expression. Tweets represent a range of dialects and Modern Standard Arabic, and were sourced publicly from Twitter (X).",
+      "domain": "Mental health",
+      "languages": "Arabic",
+      "source": "https://www.kaggle.com/datasets/irakozekelly/arabic-depression-tweets-dataset",
+      "dataset_type": "Text",
+      "size": "20,213 tweets / 100 KB",
+      "format": "CSV",
+      "license": "",
+      "notes": "How it was Made:\r\nCollection: Data was collected by scraping tweets from Twitter using special keywords and triggers\r\n.\r\nSource: Twitter, including users treats the platform as personal diaries\r\n.\r\nMethod: Scraped and manually annotated\r\n.\r\nData Type: Real social media posts\r\n.\r\nSampling: Keywords were used to identify depression and suicidal ideation triggers between 2016 and 2022\r\n.\r\nDataset Content Details:\r\nLanguage(s): Arabic\r\n.\r\nDialect(s): Egyptian Dialect and a mixture of Modern Standard Arabic (MSA) and other Arabic dialects\r\n.\r\nDomain/Topic: Mental health (Depression and Suicidal Ideation)\r\n.\r\nSize: 20,213 tweets (15,159 training, 5,054 testing)\r\n.\r\nLabels: Three classes: \"depressed\" (5,472), \"suicidal\" (2,167), and \"neutral/non-depression\" (12,574)\r\n.\r\nConstruction Methodology:\r\nCleaning: Removal of hyperlinks, empty columns, and duplicate records\r\n.\r\nPreprocessing: Sanitization for model input; not stated if stemming was used\r\n.\r\nAnnotation Process: Each record was labeled by a single annotator following specific instructions, then revised sample-by-sample by the authors\r\n.\r\nQuality Control: Authors revised all annotations; in cases of disagreement, author decisions were favored\r\n.\r\nEthical Considerations: Not explicitly stated in the construction section, though volunteers are thanked\r\n.\r\nHow it is Used:\r\nTask: Supervised binary and multi-class classification\r\n.\r\nPurpose: Training and testing for depression and suicide risk detection\r\n.\r\nModel/System: Transformer-based models (e.g., MARBERT, AraBERT)\r\n.\r\nKey Columns:\r\n\r\ntweet: Original tweet text (Arabic)\r\n\r\nlabel: Binary indicator (1 = Depression, 0 = Non-depression)\r\n\r\nnegation_flag: Presence of negation (1 or 0)\r\n\r\nintensifier_flag: Presence of emotional intensifiers (1 or 0)\r\n\r\nClass: Text label version of label",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-06-07T14:03:34Z",
+      "updated_at": "2026-06-07T14:03:34Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\Arabic Depression Tweets Dataset"
+    },
+    {
+      "id": 24,
+      "name": "Baghdadi et al. Arabic Suicide Dataset",
+      "description": "it was made for An Optimized Deep Learning Approach for Suicide Detection through Arabic Tweets (Research Paper Script)",
+      "domain": "Mental health",
+      "languages": "Arabic",
+      "source": "https://github.com/HossamBalaha/An-Optimized-Deep-Learning-Approach-for-Suicide-Detection-through-Arabic-Tweets",
+      "dataset_type": "Text",
+      "size": "14,576 samples / 1 MB",
+      "format": "CSV",
+      "license": "",
+      "notes": "How it was Made:\r\nCollection: Scraped using the \"Twint\" Python package\r\n.\r\nSource: Twitter\r\n.\r\nMethod: Scraped and manually annotated via majority voting\r\n.\r\nData Type: Real tweets\r\n.\r\nSampling: Used six native Arabic keywords for \"Suicide\" (with/without hashtags) to retrieve tweets from 2017 to 2022\r\n.\r\nDataset Content Details:\r\nLanguage: Arabic\r\n.\r\nDialect: Context-rich Arabic\r\n.\r\nDomain: Mental health (Suicidality)\r\n.\r\nSize: 14,576 raw tweets; 2,030 unique annotated tweets\r\n.\r\nLabels: Binary: Suicide (956) or Normal (1,074)\r\n.\r\nConstruction Methodology:\r\nCleaning: Removal of duplicates, empty tweets, Tashkeel, usernames, hashtag symbols, emojis, links, special characters, non-letters, and digits\r\n.\r\nPreprocessing: Lemmatization (Qalsadi) or Stemming (ISRI Stemmer), character normalization, and stop word removal (754 Arabic stop words)\r\n.\r\nAnnotation Process: Five annotators marked tweets; real contextual meaning was prioritized over literal keywords to exclude sarcasm\r\n.\r\nQuality Control: Majority voting algorithm used to finalize labels\r\n.\r\nEthical Considerations: Anonymous analysis of public content\r\n.",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-06-07T14:32:18Z",
+      "updated_at": "2026-06-07T14:32:18Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\An-Optimized-Deep-Learning-Approach-for-Suicide-Detection-through-Arabic-Tweets"
+    },
+    {
+      "id": 25,
+      "name": "AraStress",
+      "description": "Collected using CrowdTangle from public Arabic Facebook pages focusing on mental health, wellness, and emotional support",
+      "domain": "Mental health",
+      "languages": "Arabic",
+      "source": "https://aclanthology.org/2026.abjadnlp-1.50/",
+      "dataset_type": "",
+      "size": "175,862 posts",
+      "format": "",
+      "license": "",
+      "notes": "Content Details:\r\nLanguage(s): Arabic\r\n.\r\nDialect(s): Includes Modern Standard Arabic (MSA) and various dialects; regional variation is noted\r\n.\r\nDomain/Topic: Psychological stress\r\n.\r\nType of Data: Facebook posts\r\n.\r\nSize: 175,862 posts\r\n.\r\nLabels: Stress-related based on a targeted set of Arabic keywords (e.g., stress, psychological pressure, fatigue)\r\n.\r\nConstruction Methodology Details: Includes 52 metadata fields (engagement metrics, reaction counts, timestamps, geographic indicators)\r\n. Analysis used religious and therapeutic lexicons\r\n. Anonymized for privacy\r\n.\r\nUsage: Analysis of stress expressions; foundational resource for culturally grounded stress detection and digital wellbeing in Arabic communities\r\n.\r\nAccess: Available upon request for research purposes\r\n.\r\nRelevance:\r\nArabic: High; specifically designed for Arabic stress research\r\n.\r\nDarija: Not stated (mentions regional variation generally)\r\n.\r\nMultilingual: No; Arabic-specific.\r\nMental Health NLP: High; addresses the gap in stress-focused resources",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-06-08T17:29:46Z",
+      "updated_at": "2026-06-08T17:29:46Z",
+      "local_path": ""
+    },
+    {
+      "id": 26,
+      "name": "Arabic Trauma Corpus",
+      "description": "Scraped from public Facebook pages using trauma-related Arabic keywords (e.g., psychological trauma, traumatic stress)Data is real.",
+      "domain": "",
+      "languages": "",
+      "source": "https://aclanthology.org/2026.abjadnlp-1.50.pdf",
+      "dataset_type": "",
+      "size": "16,529 posts",
+      "format": "",
+      "license": "",
+      "notes": "Content Details:\r\nLanguage(s): Arabic\r\n.\r\nDialect(s): Not stated.\r\nDomain/Topic: Trauma-related discourse (grief, loss, psychological distress)\r\n.\r\nType of Data: Facebook posts\r\n.\r\nSize: 16,529 posts\r\n.\r\nUsage: Used for comparative analysis with stress-related discourse\r\n.\r\nAccess: Not stated.\r\nRelevance:\r\nArabic: High; focused on Arabic trauma expressions\r\n.\r\nDarija: Not stated.\r\nMultilingual: No.\r\nMental Health NLP: High; useful for studying trauma and PTSD in Arabic.",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-06-08T17:32:03Z",
+      "updated_at": "2026-06-08T17:32:03Z",
+      "local_path": ""
+    },
+    {
+      "id": 27,
+      "name": "Arabic Depression Tweets Dataset",
+      "description": "This dataset contains 15,000 Arabic tweets annotated for depression detection and includes linguistic feature augmentations to support research in natural language processing (NLP), sentiment analysis, and mental health detection",
+      "domain": "Mental health",
+      "languages": "Arabic",
+      "source": "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/UWLHRI",
+      "dataset_type": "Text",
+      "size": "15,000 tweets",
+      "format": "CSV",
+      "license": "",
+      "notes": "The dataset was curated to enable studies on automatic depression detection in Arabic social media and to support machine learning and deep learning approaches in the domain of computational mental health. Contents The dataset consists of the following columns: tweet: The original Arabic tweet text. label: Binary label indicating whether the tweet expresses signs of depression: 1 = Depression 0 = Non-depression negation_flag: Indicates presence (1) or absence (0) of negation in the tweet. intensifier_flag: Indicates presence (1) or absence (0) of intensifiers (words that strengthen the degree of emotion). Class (redundant but included for convenience): Textual label corresponding to the binary label (Depression or Non-depression). Binary Classification: Contains the count of instances in each class (appears as an artifact in the provided file). Key Features Language: Arabic (varied dialects and Modern Standard Arabic). Source: Publicly available tweets collected from Twitter (X). Annotation: Manual labeling by native Arabic speakers trained in psychology and linguistics. Linguistic augmentation: Flags for negation and intensifier usage are included to support linguistically informed NLP models. Potential Use Cases Depression detection models for Arabic texts. Linguistic analysis of depression expression in Arabic social media. Cross-lingual studies comparing depression signals across languages. Development of clinical decision support systems leveraging social media data. Licensing & Ethical Considerations The dataset consists of public social media posts. Researchers are advised to use it strictly for research purposes, respecting privacy and ethical guidelines. No personally identifiable information (PII) is included. Citation If you use this dataset, please cite it appropriately in your research publications and acknowledge the creators",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-06-08T17:36:58Z",
+      "updated_at": "2026-06-08T17:36:58Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\Arabic_Depression_15.000_Tweets_Annotated"
+    },
+    {
+      "id": 28,
+      "name": "Reddit C-SSRS Suicide Dataset",
+      "description": "Mental health illness such as depression is a significant risk factor for suicide ideation, behaviors, and attempts. A report by Substance Abuse and Mental Health Services Administration (SAMHSA) shows that 80% of the patients suffering from Borderline Personality Disorder (BPD) have suicidal behavior, 5-10% of whom commit suicide. While multiple initiatives have been developed and implemented for suicide prevention",
+      "domain": "Mental health",
+      "languages": "english",
+      "source": "https://zenodo.org/records/2667859",
+      "dataset_type": "Text",
+      "size": "500 instances / 3.6 MB",
+      "format": "CSV",
+      "license": "",
+      "notes": "a key challenge has been the social stigma associated with mental disorders, which deters patients from seeking help or sharing their experiences directly with others including clinicians. This is particularly true for teenagers and younger adults where suicide is the second highest cause of death in the US Prior research involving surveys and questionnaires (e.g. PHQ-9) for suicide risk prediction failed to provide a quantitative assessment of risk that informed timely clinical decision-making for intervention. Our interdisciplinary study concerns the use of Reddit as an unobtrusive data source for gleaning information about suicidal tendencies and other related mental health conditions afflicting depressed users. We provide details of our learning framework that incorporates domain-specific knowledge to predict the severity of suicide risk for an individual. Our approach involves developing a suicide risk severity lexicon using medical knowledge bases and suicide ontology to detect cues relevant to suicidal thoughts and actions. We also use language modeling, medical entity recognition, and normalization and negation detection to create a dataset of 2181 redditors that have discussed or implied suicidal ideation, behavior, or attempt. Given the importance of clinical knowledge, our gold standard dataset of 500 redditors (out of 2181) was developed by four practicing psychiatrists following the guidelines outlined in Columbia.Suicide Severity Rating Scale (C-SSRS), with the pairwise annotator agreement of 0.79 and group-wise agreement of 0.73. Compared to the existing four-label classification scheme (no risk, low risk, moderate risk, and high risk), our proposed C-SSRS-based 5-label classification scheme distinguishes people who are supportive, from those who show different severity of suicidal tendency. Our 5-label classification scheme outperforms the state-of-the-art schemes by improving the graded recall by 4.2% and reducing the perceived risk measure by 12.5%. Convolutional neural network (CNN) provided the best performance in our scheme due to the discriminative features and use of domain-specific knowledge resources, in comparison to SVM-L that has been used in the state-of-the-art tools over similar dataset",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-06-08T23:31:23Z",
+      "updated_at": "2026-06-08T23:31:23Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\Reddit C-SSRS Suicide Dataset"
+    },
+    {
+      "id": 29,
+      "name": "DAIC-WOZ Database",
+      "description": "DAIC-WOZ Database\r\nThis database contains clinical interviews designed to support the diagnosis of psychological distress conditions such as anxiety, depression, and post-traumatic stress disorder.\r\n\r\nThese interviews were collected as part of a larger effort to create a computer agent that interviews people and identifies verbal and nonverbal indicators of mental illness (DeVault et al., 2014).  \r\n\r\nData collected include audio and video recordings and extensive questionnaire responses; this part of the corpus includes data from the Wizard-of-Oz interviews, conducted by an animated virtual interviewer called Ellie, controlled by a human interviewer in another room.",
+      "domain": "Mental health",
+      "languages": "english",
+      "source": "https://dcapswoz.ict.usc.edu/",
+      "dataset_type": "text , audio , csv",
+      "size": "189 sessions",
+      "format": "Multiple",
+      "license": "",
+      "notes": "",
+      "tags": "",
+      "favorite": 1,
+      "created_at": "2026-06-09T11:40:43Z",
+      "updated_at": "2026-06-09T11:42:29Z",
+      "local_path": ""
+    },
+    {
+      "id": 30,
+      "name": "MentalQA: An Annotated Arabic Corpus for Questions and Answers of Mental Healthcare",
+      "description": "\ud83d\udcca Dataset Split & Release for Shared Task: Comprehensive Arabic Health Question Answering Shared Task (AraHealthQA 2025)\r\n\r\nThe full dataset consists of 500 annotated samples. For the purpose of this shared task, we are releasing only the training and development (train+dev) portion:\r\n\r\nTrain+Dev set: 350 samples\r\n\r\nTest set: 150 samples (Released)",
+      "domain": "Mental health",
+      "languages": "Arabic",
+      "source": "https://github.com/hasanhuz/MentalQA",
+      "dataset_type": "Text",
+      "size": "500 samples / 50 MB",
+      "format": "TSV",
+      "license": "",
+      "notes": "This repository provides access to the MentalQA dataset, which was recently accepted in the IEEE ACCESS journal. The dataset file, named \"MentalQA_500_data.csv (tab separated),\" comprises four columns of data as follows:\r\n\r\n1st Column: question\r\n2nd column: answer\r\n3rd column: question types (final_QT)\r\n4th column: answer strategies (final_AS)\r\nLabel description is provided below (refer to the paper for more details):\r\n\r\nQuestion Types\r\n\r\nA. Diagnosis. Questions about the interpretation of clinical findings, tests, and the criteria and manifestations of diseases.\r\nB. Treatment. Questions about seeking treatments, which may include drug therapy, how to use a drug, and the side effects and contraindications of drugs.\r\nC. Anatomy and physiology. This category includes important knowledge about basic medicine, such as tissues, organs, and metabolism.\r\nD. Epidemiology. Questions in this category are mainly about the course, prognosis, and sequelae of diseases, as well as the etiology and causation of diseases, and the association of risk factors with diseases.\r\nE. Healthy lifestyle. Questions are specified to diet, exercise, mood control and other lifestyle factors that can affect health.\r\nF. Provider choices. Questions ask for recommendations for hospitals, medical departments, doctors, and the doctor visiting process.\r\nZ. Other. Questions that do not fall under the above-mentioned categories.\r\nAnswer Strategies\r\n\r\nInformation. This category includes answers that provide information, resources, etc. It also includes requests for information.\r\nDirect Guidance. This category includes answers that provide suggestions, instructions, or advice. It also includes answers that tell the questioner what they should do to change.\r\nEmotional Support. This category includes answers that provide approval, reassurance, or other forms of emotional support.",
+      "tags": "",
+      "favorite": 1,
+      "created_at": "2026-06-10T09:39:31Z",
+      "updated_at": "2026-06-10T09:39:31Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\MentalQA-main\\MentalQA-main"
+    },
+    {
+      "id": 31,
+      "name": "Mental Health Social Posts Dataset",
+      "description": "This dataset contains 1,000 anonymized social media posts labeled for signs of mental health conditions including depression, anxiety, suicidal thoughts, or no apparent issues. It is designed to help researchers and developers build early warning systems, mental health support chatbots, or other AI tools to detect and assist individuals experiencing mental health challenges. The posts are synthetic but modeled to reflect realistic language and emotional cues commonly found on social media.",
+      "domain": "Mental health",
+      "languages": "english",
+      "source": "https://www.kaggle.com/datasets/shamimhasan8/mental-health-social-posts-dataset",
+      "dataset_type": "Text",
+      "size": "1000 samples",
+      "format": "CSV",
+      "license": "",
+      "notes": "",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-06-10T09:53:46Z",
+      "updated_at": "2026-06-10T09:53:46Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets"
+    }
+  ],
+  "attachments": [
+    {
+      "id": 15,
+      "dataset_id": 9,
+      "filename": "9_46e16cf9e37b4f3db0d5eb1338a851f3_Screenshot_2026-05-05_115312.png",
+      "original_filename": "Screenshot 2026-05-05 115312.png",
+      "mime_type": "image/png",
+      "created_at": "2026-05-05T14:50:31Z"
+    },
+    {
+      "id": 16,
+      "dataset_id": 9,
+      "filename": "9_86e5540bfd784617ad8d4e32444410b0_data_distribution.png",
+      "original_filename": "data_distribution.png",
+      "mime_type": "image/png",
+      "created_at": "2026-05-05T14:50:31Z"
+    },
+    {
+      "id": 17,
+      "dataset_id": 11,
+      "filename": "11_58c588c107e347fbae2b25eb579af278_Screenshot_2026-05-05_201107.png",
+      "original_filename": "Screenshot 2026-05-05 201107.png",
+      "mime_type": "image/png",
+      "created_at": "2026-05-05T21:20:42Z"
+    },
+    {
+      "id": 18,
+      "dataset_id": 12,
+      "filename": "12_0241cf8da7a84c4ca7717957563ebcf1_Screenshot_2026-05-15_230300.png",
+      "original_filename": "Screenshot 2026-05-15 230300.png",
+      "mime_type": "image/png",
+      "created_at": "2026-05-15T22:03:20Z"
+    },
+    {
+      "id": 19,
+      "dataset_id": 13,
+      "filename": "13_2704574402e04e1fa99b275867818760_fig1_top33_distribution.png",
+      "original_filename": "fig1_top33_distribution.png",
+      "mime_type": "image/png",
+      "created_at": "2026-05-16T22:33:45Z"
+    },
+    {
+      "id": 20,
+      "dataset_id": 13,
+      "filename": "13_bf32668f34c54e4c86a381277f8c5980_fig3_methodology.png",
+      "original_filename": "fig3_methodology.png",
+      "mime_type": "image/png",
+      "created_at": "2026-05-16T22:33:45Z"
+    },
+    {
+      "id": 21,
+      "dataset_id": 13,
+      "filename": "13_de306d8a87c04b8d8cd4c378865a3e6e_Screenshot_2026-05-16_231948.png",
+      "original_filename": "Screenshot 2026-05-16 231948.png",
+      "mime_type": "image/png",
+      "created_at": "2026-05-16T22:33:45Z"
+    },
+    {
+      "id": 22,
+      "dataset_id": 13,
+      "filename": "13_7ac0ebc5617f4c539b2a8a3d9d15e12d_Screenshot_2026-05-17_001229.png",
+      "original_filename": "Screenshot 2026-05-17 001229.png",
+      "mime_type": "image/png",
+      "created_at": "2026-05-16T23:14:54Z"
+    },
+    {
+      "id": 23,
+      "dataset_id": 13,
+      "filename": "13_1fcbab508c8e4e46b52ff69cfee3974e_Screenshot_2026-05-17_001332.png",
+      "original_filename": "Screenshot 2026-05-17 001332.png",
+      "mime_type": "image/png",
+      "created_at": "2026-05-16T23:14:54Z"
+    },
+    {
+      "id": 25,
+      "dataset_id": 15,
+      "filename": "15_f3a8b49a522d4b228cc9187ff76564e7_Screenshot_2026-05-18_213724.png",
+      "original_filename": "Screenshot 2026-05-18 213724.png",
+      "mime_type": "image/png",
+      "created_at": "2026-05-18T20:37:48Z"
+    },
+    {
+      "id": 26,
+      "dataset_id": 16,
+      "filename": "16_b31fea0ea1794744b130b956ca2102e4_Screenshot_2026-06-05_170525.png",
+      "original_filename": "Screenshot 2026-06-05 170525.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-05T16:05:31Z"
+    },
+    {
+      "id": 27,
+      "dataset_id": 17,
+      "filename": "17_b1b08e51d4b7494eb72f8b58de969d1a_Screenshot_2026-06-05_172629.png",
+      "original_filename": "Screenshot 2026-06-05 172629.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-05T16:26:51Z"
+    },
+    {
+      "id": 28,
+      "dataset_id": 17,
+      "filename": "17_137b720bd10b4defb2dafdb7960e8149_Screenshot_2026-06-05_172637.png",
+      "original_filename": "Screenshot 2026-06-05 172637.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-05T16:26:51Z"
+    },
+    {
+      "id": 29,
+      "dataset_id": 18,
+      "filename": "18_ab4c9049452a45aab56e9e39d84e3faa_Screenshot_2026-06-05_173144.png",
+      "original_filename": "Screenshot 2026-06-05 173144.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-05T16:31:49Z"
+    },
+    {
+      "id": 30,
+      "dataset_id": 19,
+      "filename": "19_9d3e08b967d54d7886d3bb255e391d5a_Screenshot_2026-06-05_175501.png",
+      "original_filename": "Screenshot 2026-06-05 175501.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-05T16:55:13Z"
+    },
+    {
+      "id": 31,
+      "dataset_id": 20,
+      "filename": "20_c5dbe46e81314b648025b2bfc9ceed18_Screenshot_2026-06-05_175746.png",
+      "original_filename": "Screenshot 2026-06-05 175746.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-05T16:58:04Z"
+    },
+    {
+      "id": 32,
+      "dataset_id": 21,
+      "filename": "21_f79025d67e864da4855649aa433b76af_Screenshot_2026-06-05_223403.png",
+      "original_filename": "Screenshot 2026-06-05 223403.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-05T21:35:46Z"
+    },
+    {
+      "id": 33,
+      "dataset_id": 21,
+      "filename": "21_66bfb96f3d9a40fb962c8c04181da5dd_Screenshot_2026-06-05_223420.png",
+      "original_filename": "Screenshot 2026-06-05 223420.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-05T21:35:46Z"
+    },
+    {
+      "id": 34,
+      "dataset_id": 22,
+      "filename": "22_165817b5adf84a1fab4ebaafedd00e03_Screenshot_2026-06-05_230243.png",
+      "original_filename": "Screenshot 2026-06-05 230243.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-05T22:02:50Z"
+    },
+    {
+      "id": 35,
+      "dataset_id": 23,
+      "filename": "23_aff09dc8eaef4360b98fa04a63984de4_Screenshot_2026-06-07_145916.png",
+      "original_filename": "Screenshot 2026-06-07 145916.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-07T14:03:34Z"
+    },
+    {
+      "id": 36,
+      "dataset_id": 24,
+      "filename": "24_8883cbe25cb14430a36403f1998d84b0_Screenshot_2026-06-07_152940.png",
+      "original_filename": "Screenshot 2026-06-07 152940.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-07T14:32:18Z"
+    },
+    {
+      "id": 37,
+      "dataset_id": 27,
+      "filename": "27_ebfb0c0d6aca40b4b969d37c30a394b9_Screenshot_2026-06-08_183525.png",
+      "original_filename": "Screenshot 2026-06-08 183525.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-08T17:36:58Z"
+    },
+    {
+      "id": 38,
+      "dataset_id": 28,
+      "filename": "28_6e4ce265987d4f148b1e016af0892bc9_Screenshot_2026-06-09_003101.png",
+      "original_filename": "Screenshot 2026-06-09 003101.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-08T23:31:23Z"
+    },
+    {
+      "id": 39,
+      "dataset_id": 30,
+      "filename": "30_94a893f23e4e42e09812d044c91a4000_Screenshot_2026-06-10_103630.png",
+      "original_filename": "Screenshot 2026-06-10 103630.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-10T09:39:31Z"
+    },
+    {
+      "id": 40,
+      "dataset_id": 30,
+      "filename": "30_fb29b4d8e9004745ae1f7021189e88e6_Screenshot_2026-06-10_103656.png",
+      "original_filename": "Screenshot 2026-06-10 103656.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-10T09:39:31Z"
+    },
+    {
+      "id": 41,
+      "dataset_id": 31,
+      "filename": "31_d443e291510e40c7848fdab0e180b535_Screenshot_2026-06-10_105238.png",
+      "original_filename": "Screenshot 2026-06-10 105238.png",
+      "mime_type": "image/png",
+      "created_at": "2026-06-10T09:53:46Z"
+    }
+  ],
+  "taxonomy": [
+    {
+      "id": 1,
+      "category": "domain",
+      "value": "Mental health",
+      "created_at": "2026-06-05T15:25:43Z"
+    },
+    {
+      "id": 2,
+      "category": "dataset_type",
+      "value": "Text",
+      "created_at": "2026-06-05T15:25:43Z"
+    },
+    {
+      "id": 3,
+      "category": "language",
+      "value": "Arabic",
+      "created_at": "2026-06-05T15:25:43Z"
+    },
+    {
+      "id": 6,
+      "category": "language",
+      "value": "Multi",
+      "created_at": "2026-06-05T15:25:43Z"
+    },
+    {
+      "id": 11,
+      "category": "dataset_type",
+      "value": "text,audio",
+      "created_at": "2026-06-05T15:25:43Z"
+    },
+    {
+      "id": 13,
+      "category": "language",
+      "value": "french",
+      "created_at": "2026-06-05T15:25:43Z"
+    },
+    {
+      "id": 14,
+      "category": "language",
+      "value": "english",
+      "created_at": "2026-06-05T15:25:43Z"
+    },
+    {
+      "id": 20,
+      "category": "format",
+      "value": "CSV",
+      "created_at": "2026-06-05T15:53:50Z"
+    },
+    {
+      "id": 32,
+      "category": "format",
+      "value": "Parquet",
+      "created_at": "2026-06-05T15:53:50Z"
+    },
+    {
+      "id": 41,
+      "category": "format",
+      "value": "JSON",
+      "created_at": "2026-06-05T15:53:50Z"
+    },
+    {
+      "id": 42,
+      "category": "format",
+      "value": "TSV",
+      "created_at": "2026-06-05T15:53:50Z"
+    },
+    {
+      "id": 44,
+      "category": "format",
+      "value": "XLSX",
+      "created_at": "2026-06-05T15:53:50Z"
+    },
+    {
+      "id": 45,
+      "category": "format",
+      "value": "TXT",
+      "created_at": "2026-06-05T15:53:50Z"
+    },
+    {
+      "id": 46,
+      "category": "format",
+      "value": "XML",
+      "created_at": "2026-06-05T15:53:50Z"
+    },
+    {
+      "id": 21938,
+      "category": "dataset_type",
+      "value": "text , audio , csv",
+      "created_at": "2026-06-09T11:40:02Z"
+    },
+    {
+      "id": 22686,
+      "category": "format",
+      "value": "Multiple",
+      "created_at": "2026-06-09T11:41:01Z"
+    }
+  ],
+  "settings": [
+    {
+      "key": "taxonomy_seeded",
+      "value": "1"
+    },
+    {
+      "key": "format_seeded",
+      "value": "1"
+    }
+  ]
+}
