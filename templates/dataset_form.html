@@ -1,131 +1,166 @@
 {% extends 'base.html' %}
-{% block content %}
-<section class="panel form-panel">
-  <div class="results-head">
-    <div>
-      <p class="eyebrow">{{ 'Edit dataset' if mode == 'edit' else 'New dataset' }}</p>
-      <h1>{{ 'Update a dataset entry' if mode == 'edit' else 'Add a dataset entry' }}</h1>
-    </div>
-    <a class="button ghost" href="{{ url_for('datasets_index') }}">Back to dashboard</a>
-  </div>
+{% from '_macros.html' import lang_color, csrf_field with context %}
+{% set editing = mode == 'edit' %}
+{% set title = 'Edit ' ~ dataset.name if editing else 'Add dataset' %}
 
-  <form class="dataset-form" method="post" enctype="multipart/form-data">
-    <div class="form-grid">
-      <label class="field span-2">
-        <span>Name *</span>
-        <input name="name" value="{{ dataset.get('name', '') }}" required>
-      </label>
-      <label class="field span-2">
-        <span>Domain</span>
-        <select name="domain">
-          <option value="">Select a domain</option>
-          {% for option in taxonomy_options.domains %}
-            <option value="{{ option }}" {% if dataset.get('domain', '') == option %}selected{% endif %}>{{ option }}</option>
-          {% endfor %}
-        </select>
-      </label>
-      <label class="field span-2">
-        <span>Description</span>
-        <textarea name="description" rows="4">{{ dataset.get('description', '') }}</textarea>
-      </label>
-      <label class="field span-2">
-        <span>Languages</span>
-        <select name="languages">
-          <option value="">Select a language</option>
-          {% set selected_language = selected_languages[0] if selected_languages else '' %}
-          {% for option in taxonomy_options.languages %}
-            <option value="{{ option }}" {% if option == selected_language %}selected{% endif %}>{{ option }}</option>
-          {% endfor %}
-        </select>
-        <small>Pick one language from your saved list.</small>
-      </label>
-      <label class="field span-2">
-        <span>Source</span>
-        <input name="source" value="{{ dataset.get('source', '') }}" placeholder="URL or publication link">
-      </label>
-      <label class="field span-2">
-        <span>Local folder path</span>
-        <input name="local_path" value="{{ dataset.get('local_path', '') }}" placeholder="C:\\Users\\you\\Documents\\dataset-folder">
-        <small>Paste the folder path on your PC so you can open it later from the catalog.</small>
+{% macro chip_group(name, label, options, selected, add_label, colored=False) %}
+  {% set chosen = selected|map('lower')|list %}
+  <fieldset class="field chip-field" data-chip-group="{{ name }}">
+    <legend>{{ label }}</legend>
+    <div class="chip-options">
+      {% for option in options %}
+        <label class="chip-option">
+          <input type="checkbox" name="{{ name }}" value="{{ option }}" {% if option|lower in chosen %}checked{% endif %}>
+          <span>{% if colored %}<i class="swatch" style="--c: {{ lang_color(option) }}"></i>{% endif %}{{ option }}</span>
+        </label>
+      {% endfor %}
+      <span class="chip-add">
+        <input type="text" placeholder="{{ add_label }}" aria-label="{{ add_label }}" data-chip-new>
+      </span>
+    </div>
+  </fieldset>
+{% endmacro %}
+
+{% block content %}
+<a class="back-link" href="{{ url_for('dataset_detail', dataset_id=dataset.id) if editing else url_for('datasets_index') }}">
+  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+  {{ 'Back to dataset' if editing else 'All datasets' }}
+</a>
+
+<form class="dataset-form" method="post" enctype="multipart/form-data" data-dirty-guard>
+  {{ csrf_field() }}
+  <header class="form-head">
+    <h1 class="display">{{ 'Edit dataset' if editing else 'Add a dataset' }}</h1>
+    <label class="star-toggle">
+      <input name="favorite" type="checkbox" {% if dataset.get('favorite') %}checked{% endif %}>
+      <span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9L12 3.5Z"/></svg>
+        Starred
+      </span>
+    </label>
+  </header>
+
+  <section class="form-section">
+    <div class="form-section-intro">
+      <h2>Basics</h2>
+      <p>What the dataset is, in your own words.</p>
+    </div>
+    <div class="form-fields">
+      <label class="field">
+        <span class="field-label">Name <em>required</em></span>
+        <input name="name" value="{{ dataset.get('name', '') }}" required autofocus dir="auto" placeholder="e.g. MentalQA">
       </label>
       <label class="field">
-        <span>Dataset type</span>
-        <select name="dataset_type">
-          <option value="">Select a type</option>
-          {% for option in taxonomy_options.dataset_types %}
-            <option value="{{ option }}" {% if dataset.get('dataset_type', '') == option %}selected{% endif %}>{{ option }}</option>
-          {% endfor %}
-        </select>
+        <span class="field-label">Description</span>
+        <textarea name="description" rows="4" dir="auto" placeholder="What's in it, who collected it, what it's labelled for">{{ dataset.get('description', '') or '' }}</textarea>
       </label>
-      <label class="field">
-        <span>Size</span>
-        <input name="size" value="{{ dataset.get('size', '') }}" placeholder="e.g. 12k samples, 3.2 GB">
-      </label>
-      <label class="field">
-        <span>Format</span>
-        <select name="format">
-          <option value="">Select a format</option>
-          {% for option in taxonomy_options.formats %}
-            <option value="{{ option }}" {% if dataset.get('format', '') == option %}selected{% endif %}>{{ option }}</option>
-          {% endfor %}
-        </select>
-      </label>
-      <label class="field">
-        <span>License</span>
-        <input name="license" value="{{ dataset.get('license', '') }}" placeholder="CC BY 4.0, custom, unknown">
-      </label>
-      <label class="field span-2">
-        <span>Tags</span>
-        <input name="tags" value="{{ dataset.get('tags', '') }}" placeholder="benchmark, depression, code-switching">
-      </label>
-      <label class="field span-2">
-        <span>Notes</span>
-        <textarea name="notes" rows="5" placeholder="Research notes, quality issues, preprocessing ideas">{{ dataset.get('notes', '') }}</textarea>
-      </label>
-      <label class="check span-2">
-        <input name="favorite" type="checkbox" {% if dataset.get('favorite') %}checked{% endif %}>
-        <span>Mark as important / favorite</span>
-      </label>
-      <div class="field span-2 uploads-section">
-        <span>Screenshots / images</span>
-        <div class="upload-inputs" id="uploadInputs">
-          <label class="upload-row">
-            <span>Image 1</span>
-            <input name="screenshots" type="file" accept="image/*">
-          </label>
-        </div>
-        <div class="upload-actions">
-          <button class="button ghost" id="addUploadInput" type="button">Add another image</button>
-          <small>Use separate pickers if your images live in different folders.</small>
-        </div>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <div class="form-section-intro">
+      <h2>Classification</h2>
+      <p>Used by the catalogue filters. Pick every language and modality that applies.</p>
+    </div>
+    <div class="form-fields">
+      {{ chip_group('languages', 'Languages', options.languages, dataset.get('languages_list', []), 'Other language…', colored=True) }}
+      {{ chip_group('dataset_type', 'Modality', options.dataset_types, dataset.get('types_list', []), 'Other modality…') }}
+      <div class="field-row">
+        <label class="field">
+          <span class="field-label">File format</span>
+          <input name="format" list="formatOptions" value="{{ dataset.get('format', '') or '' }}" placeholder="CSV, JSON, Parquet…">
+          <datalist id="formatOptions">{% for o in options.formats %}<option value="{{ o }}">{% endfor %}</datalist>
+        </label>
+        <label class="field">
+          <span class="field-label">Domain</span>
+          <input name="domain" list="domainOptions" value="{{ dataset.get('domain', '') or '' }}" placeholder="Mental health">
+          <datalist id="domainOptions">{% for o in options.domains %}<option value="{{ o }}">{% endfor %}</datalist>
+        </label>
       </div>
     </div>
+  </section>
 
-    {% if mode == 'edit' and current_dataset and current_dataset.attachments %}
-      <div class="attachment-preview-block">
-        <h3>Current attachments</h3>
-        <p class="muted">Select any files you want to remove, then upload new screenshots below if needed.</p>
-        <div class="attachments-grid">
-          {% for attachment in current_dataset.attachments %}
-            <label class="attachment-edit-card">
+  <section class="form-section">
+    <div class="form-section-intro">
+      <h2>Scale and access</h2>
+      <p>Where it lives and what you're allowed to do with it.</p>
+    </div>
+    <div class="form-fields">
+      <div class="field-row">
+        <label class="field">
+          <span class="field-label">Size</span>
+          <input name="size" value="{{ dataset.get('size', '') or '' }}" placeholder="12,000 samples / 40 MB" data-size-input>
+          <small class="hint" data-size-hint>Start with the sample count; it drives the chart and sorting.</small>
+        </label>
+        <label class="field">
+          <span class="field-label">License</span>
+          <input name="license" list="licenseOptions" value="{{ dataset.get('license', '') or '' }}" placeholder="CC BY 4.0">
+          <datalist id="licenseOptions">
+            {% for o in ['CC BY 4.0', 'CC BY-SA 4.0', 'CC BY-NC 4.0', 'CC BY-NC-SA 4.0', 'CC0 1.0', 'MIT', 'Apache 2.0', 'Research only (EULA)', 'Unknown'] %}<option value="{{ o }}">{% endfor %}
+          </datalist>
+        </label>
+      </div>
+      <label class="field">
+        <span class="field-label">Source link</span>
+        <input name="source" inputmode="url"value="{{ dataset.get('source', '') or '' }}" placeholder="https://huggingface.co/datasets/…">
+      </label>
+      <label class="field">
+        <span class="field-label">Local folder</span>
+        <input name="local_path" class="mono" value="{{ dataset.get('local_path', '') or '' }}" placeholder="MentalQA-main  or  C:\Users\you\Documents\dataset">
+        <small class="hint">A folder name inside <span class="mono">downloaded datasets</span>, or a full path. Folder names keep working if you move the project.</small>
+      </label>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <div class="form-section-intro">
+      <h2>Notes</h2>
+      <p>Anything you'll want to remember when writing up.</p>
+    </div>
+    <div class="form-fields">
+      <label class="field">
+        <span class="field-label">Tags</span>
+        <input name="tags" value="{{ dataset.get('tags', '') or '' }}" placeholder="counselling, suicide-risk, code-switching">
+        <small class="hint">Separate with commas.</small>
+      </label>
+      <label class="field">
+        <span class="field-label">Research notes</span>
+        <textarea name="notes" rows="8" dir="auto" placeholder="Label scheme, quality issues, preprocessing ideas, papers that use it">{{ dataset.get('notes', '') or '' }}</textarea>
+      </label>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <div class="form-section-intro">
+      <h2>Images</h2>
+      <p>Screenshots of the dataset card, label distribution, samples.</p>
+    </div>
+    <div class="form-fields">
+      {% if editing and dataset.get('attachments') %}
+        <div class="existing-images">
+          {% for attachment in dataset.attachments %}
+            <label class="existing-image">
               <input type="checkbox" name="remove_attachments" value="{{ attachment.id }}">
-              <figure class="attachment-card">
-                <img src="{{ attachment.url }}" alt="{{ attachment.original_filename }}">
-                <figcaption>{{ attachment.original_filename }}</figcaption>
-              </figure>
-              <span>Remove</span>
+              <img src="{{ attachment.url }}" alt="{{ attachment.original_filename }}" loading="lazy">
+              <span class="existing-image-action">Remove</span>
             </label>
           {% endfor %}
         </div>
-      </div>
-    {% endif %}
-
-    <div class="form-actions">
-      <button class="button primary" type="submit">{{ 'Save changes' if mode == 'edit' else 'Create dataset' }}</button>
-      {% if mode == 'edit' and current_dataset %}
-        <a class="button ghost" href="{{ url_for('dataset_detail', dataset_id=current_dataset.id) }}">Cancel</a>
+        <small class="hint">Tick an image to remove it when you save.</small>
       {% endif %}
+      <div class="dropzone" data-dropzone tabindex="0" role="button" aria-label="Add images: click to choose files, drop them here, or paste from the clipboard">
+        <input type="file" name="screenshots" accept="image/png,image/jpeg,image/gif,image/webp" multiple hidden data-dropzone-input>
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="m4 18 5-5 3.5 3.5L15 14l5 5"/></svg>
+        <p><strong>Drop images here</strong>, click to choose, or press <kbd>Ctrl</kbd>+<kbd>V</kbd> to paste a screenshot</p>
+        <small class="muted">PNG, JPG, GIF or WebP · up to 20 MB per save</small>
+      </div>
+      <div class="pending-images" data-dropzone-previews></div>
     </div>
-  </form>
-</section>
+  </section>
+
+  <div class="form-actions">
+    <a class="button ghost" href="{{ url_for('dataset_detail', dataset_id=dataset.id) if editing else url_for('datasets_index') }}">Cancel</a>
+    <button class="button primary" type="submit">{{ 'Save changes' if editing else 'Add dataset' }}</button>
+  </div>
+</form>
 {% endblock %}

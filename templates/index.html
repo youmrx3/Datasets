@@ -1,108 +1,164 @@
 {% extends 'base.html' %}
+{% from '_macros.html' import lang_color with context %}
 {% block content %}
-<section class="hero">
-  <div>
-    <p class="eyebrow">Dashboard</p>
-    <h1> research datasets .</h1>
-    <p class="lede">Track multilingual mental health datasets and any other research collection in one lightweight local catalog.</p>
+<section class="overview">
+  <div class="overview-head">
+    <h1 class="display">Research datasets</h1>
+    <p class="overview-stats mono">
+      <span><strong>{{ overview.total }}</strong> datasets</span>
+      <span><strong>{{ overview.samples|compact }}</strong> samples</span>
+      <span><strong>{{ overview.languages|length }}</strong> languages</span>
+      <span><strong>{{ overview.favorites }}</strong> starred</span>
+    </p>
   </div>
-  <div class="hero-stats">
-    <div class="stat-card">
-      <span>Total datasets</span>
-      <strong>{{ stats.total }}</strong>
+
+  {% if overview.spectrum %}
+  <figure class="spectrum" aria-labelledby="spectrumTitle">
+    <figcaption class="spectrum-head">
+      <span id="spectrumTitle" class="spectrum-title">Samples per dataset <span class="muted">· log scale, colour = first language</span></span>
+      <span class="spectrum-legend" role="group" aria-label="Filter by language">
+        {% for language, count in overview.languages %}
+          <button type="button" class="legend-item" data-legend-language="{{ language }}" aria-pressed="false">
+            <i class="swatch" style="--c: {{ lang_color(language) }}"></i>{{ language }} <span class="mono muted">{{ count }}</span>
+          </button>
+        {% endfor %}
+        {% if overview.no_language %}
+          <span class="legend-item is-static"><i class="swatch" style="--c: var(--series-other)"></i>Not set <span class="mono muted">{{ overview.no_language }}</span></span>
+        {% endif %}
+      </span>
+    </figcaption>
+    <div class="spectrum-plot">
+      <div class="spectrum-axis" aria-hidden="true">
+        {% for tick in overview.ticks %}
+          <span class="tick mono" style="bottom: {{ tick.height }}%">{{ tick.label }}</span>
+        {% endfor %}
+      </div>
+      <div class="spectrum-bars">
+        {% for tick in overview.ticks %}
+          <span class="gridline" style="bottom: {{ tick.height }}%" aria-hidden="true"></span>
+        {% endfor %}
+        {% for item in overview.spectrum %}
+          <a class="bar {% if not item.samples %}is-unsized{% endif %}" href="{{ item.url }}"
+             style="--h: {{ item.height if item.samples else 12 }}%; --c: {{ lang_color(item.language) }}"
+             data-languages="{{ item.languages|join('|') }}"
+             data-tip-title="{{ item.name }}"
+             data-tip-value="{{ (item.samples|thousands) ~ ' samples' if item.samples else 'Sample count not recorded' }}"
+             data-tip-meta="{{ item.languages|join(', ') or 'No language set' }}"
+             aria-label="{{ item.name }}: {{ (item.samples|thousands) ~ ' samples' if item.samples else 'no sample count' }}">
+            <span></span>
+          </a>
+        {% endfor %}
+      </div>
     </div>
-    <div class="stat-card">
-      <span>Favorites</span>
-      <strong>{{ stats.favorites }}</strong>
+    {% if overview.unsized %}
+      <p class="spectrum-note muted">Dashed bars have no sample count. Add one in the Size field, e.g. “12,000 samples / 40 MB”.</p>
+    {% endif %}
+  </figure>
+  {% endif %}
+</section>
+
+<section class="toolbar" aria-label="Search and filter">
+  <div class="toolbar-row">
+    <label class="search">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
+      <span class="visually-hidden">Search datasets</span>
+      <input id="searchInput" type="search" placeholder="Search names, notes, sources, tags…" autocomplete="off">
+      <kbd>/</kbd>
+    </label>
+    <div class="filter-selects">
+      <label class="select-pill"><span class="visually-hidden">Language</span>
+        <select id="languageFilter" data-param="language">
+          <option value="">All languages</option>
+          {% for value in filter_options.languages %}<option value="{{ value }}">{{ value }}</option>{% endfor %}
+        </select>
+      </label>
+      <label class="select-pill"><span class="visually-hidden">Modality</span>
+        <select id="typeFilter" data-param="dataset_type">
+          <option value="">All modalities</option>
+          {% for value in filter_options.dataset_types %}<option value="{{ value }}">{{ value }}</option>{% endfor %}
+        </select>
+      </label>
+      <label class="select-pill"><span class="visually-hidden">Format</span>
+        <select id="formatFilter" data-param="format">
+          <option value="">All formats</option>
+          {% for value in filter_options.formats %}<option value="{{ value }}">{{ value }}</option>{% endfor %}
+        </select>
+      </label>
+      {% if filter_options.domains|length > 1 %}
+      <label class="select-pill"><span class="visually-hidden">Domain</span>
+        <select id="domainFilter" data-param="domain">
+          <option value="">All domains</option>
+          {% for value in filter_options.domains %}<option value="{{ value }}">{{ value }}</option>{% endfor %}
+        </select>
+      </label>
+      {% endif %}
+      <button class="toggle-pill" id="favoriteOnly" type="button" aria-pressed="false">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9L12 3.5Z"/></svg>
+        Starred
+      </button>
     </div>
-    <div class="stat-card">
-      <span>Domains</span>
-      <strong>{{ stats.domains }}</strong>
+  </div>
+  <div class="toolbar-row secondary">
+    <p class="results-count" id="resultsCount" aria-live="polite">Loading…</p>
+    <button class="link-button hidden" id="clearFilters" type="button">Clear filters</button>
+    <div class="toolbar-end">
+      <label class="select-plain">
+        <span>Sort</span>
+        <select id="sortFilter" data-param="sort">
+          <option value="created_desc">Newest added</option>
+          <option value="updated_desc">Recently edited</option>
+          <option value="name_asc">Name A–Z</option>
+          <option value="samples_desc">Most samples</option>
+          <option value="samples_asc">Fewest samples</option>
+          <option value="created_asc">Oldest added</option>
+        </select>
+      </label>
+      <div class="segmented" role="group" aria-label="Layout">
+        <button type="button" id="cardsViewBtn" aria-pressed="true" title="Cards">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>
+          <span class="visually-hidden">Cards</span>
+        </button>
+        <button type="button" id="tableViewBtn" aria-pressed="false" title="Table">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <span class="visually-hidden">Table</span>
+        </button>
+      </div>
+      <details class="menu">
+        <summary class="button ghost small">Export</summary>
+        <div class="menu-panel">
+          <a id="exportCsv" href="{{ url_for('export_csv') }}">CSV <span class="muted">for Excel</span></a>
+          <a id="exportJson" href="{{ url_for('export_json') }}">JSON <span class="muted">for scripts</span></a>
+          <p class="menu-note muted">Exports what's shown, filters included.</p>
+        </div>
+      </details>
     </div>
   </div>
 </section>
 
-<section class="panel filters-panel">
-  <div class="filters-row">
-    <label class="field search-field">
-      <span>Search</span>
-      <input id="searchInput" type="search" placeholder="Search by name, keyword, notes, or tags">
-    </label>
-    <label class="field">
-      <span>Domain</span>
-      <select id="domainFilter">
-        <option value="">All domains</option>
-        {% for domain in filter_options.domains %}
-          <option value="{{ domain }}">{{ domain }}</option>
-        {% endfor %}
-      </select>
-    </label>
-    <label class="field">
-      <span>Language</span>
-      <select id="languageFilter">
-        <option value="">All languages</option>
-        {% for language in filter_options.languages %}
-          <option value="{{ language }}">{{ language }}</option>
-        {% endfor %}
-      </select>
-    </label>
-    <label class="field">
-      <span>Dataset type</span>
-      <select id="typeFilter">
-        <option value="">All types</option>
-        {% for dataset_type in filter_options.dataset_types %}
-          <option value="{{ dataset_type }}">{{ dataset_type }}</option>
-        {% endfor %}
-      </select>
-    </label>
-    <label class="field">
-      <span>Format</span>
-      <select id="formatFilter">
-        <option value="">All formats</option>
-        {% for dataset_format in filter_options.formats %}
-          <option value="{{ dataset_format }}">{{ dataset_format }}</option>
-        {% endfor %}
-      </select>
-    </label>
+<section aria-label="Datasets">
+  <div id="datasetsGrid" class="datasets cards-view" aria-busy="true"></div>
+  <div id="emptyState" class="empty hidden">
+    <h2>No datasets match these filters</h2>
+    <p>Try a shorter search or clear the filters.</p>
+    <button class="button ghost" type="button" data-clear-filters>Clear filters</button>
   </div>
-  <div class="filters-row bottom-row">
-    <label class="check">
-      <input id="favoriteOnly" type="checkbox">
-      <span>Favorites only</span>
-    </label>
-    <label class="field sort-field">
-      <span>Order</span>
-      <select id="sortFilter">
-        <option value="created_desc" selected>Newest added</option>
-        <option value="created_asc">Oldest added</option>
-        <option value="updated_desc">Recently updated</option>
-        <option value="name_asc">Name (A-Z)</option>
-      </select>
-    </label>
-    <div class="view-toggle" role="tablist" aria-label="View mode">
-      <button class="button ghost is-active" id="cardsViewBtn" type="button">Cards</button>
-      <button class="button ghost" id="tableViewBtn" type="button">Table</button>
-    </div>
+  <div id="loadError" class="empty hidden">
+    <h2>The catalogue didn't load</h2>
+    <p>Check that the app is still running, then reload the page.</p>
   </div>
 </section>
 
-<section class="panel results-panel">
-  <div class="results-head">
-    <div>
-      <p class="eyebrow">Collection</p>
-      <h2 id="resultsLabel">All datasets</h2>
-    </div>
-    <p class="results-count" id="resultsCount">Loading...</p>
-  </div>
-  <div id="datasetsGrid" class="datasets-grid"></div>
-  <div id="emptyState" class="empty-state hidden">
-    <h3>No datasets match the current filters.</h3>
-    <p>Add the first dataset or relax the search filters.</p>
-    <a class="button primary" href="{{ url_for('new_dataset') }}">Add dataset</a>
-  </div>
-</section>
+<div class="chart-tip" id="chartTip" role="tooltip" hidden>
+  <strong></strong><span class="mono"></span><em></em>
+</div>
 
 <script>
-  window.DATASET_CATALOG = {{ {'apiUrl': url_for('datasets_api')} | tojson }};
+  window.DATASET_CATALOG = {{ {
+    'apiUrl': url_for('datasets_api'),
+    'exportCsv': url_for('export_csv'),
+    'exportJson': url_for('export_json'),
+    'canOpenFolders': can_open_folders,
+    'languageSlots': language_slots,
+  } | tojson }};
 </script>
 {% endblock %}

@@ -6,3 +6,6 @@ venv/
 instance/
 uploads/
 *.db
+
+# Raw dataset files (large, kept locally only)
+downloaded datasets/

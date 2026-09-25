@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% set title = 'Not found' %}
 {% block content %}
-<section class="panel empty-page">
-  <p class="eyebrow">Not found</p>
-  <h1>This dataset page does not exist.</h1>
-  <p class="lede">The entry may have been deleted or the link is outdated.</p>
-  <a class="button primary" href="{{ url_for('datasets_index') }}">Back to dashboard</a>
+<section class="empty page-empty">
+  <p class="mono muted">404</p>
+  <h1 class="display">That page isn't here</h1>
+  <p>The dataset may have been deleted, or the link is out of date.</p>
+  <a class="button primary" href="{{ url_for('datasets_index') }}">Go to the catalogue</a>
 </section>
 {% endblock %}

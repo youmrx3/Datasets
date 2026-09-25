@@ -1,127 +1,56 @@
 {% extends 'base.html' %}
+{% from '_macros.html' import lang_color, csrf_field with context %}
+{% set title = 'Options' %}
+{% set filter_param = {'domain': 'domain', 'language': 'language', 'dataset_type': 'dataset_type', 'format': 'format'} %}
 {% block content %}
-<section class="panel taxonomy-panel minimal">
-  <div class="results-head">
-    <div>
-      <p class="eyebrow">Dataset options</p>
-      <h1>Manage dataset options</h1>
-      <p class="lede">Keep a clean list of domains, languages, types, and formats.</p>
-    </div>
-    <a class="button ghost" href="{{ url_for('datasets_index') }}">Back to dashboard</a>
-  </div>
+<header class="page-head">
+  <h1 class="display">Options</h1>
+  <p class="lede">The values offered in the form and the catalogue filters. Renaming an option updates every dataset that uses it. Rename to an existing value to merge the two.</p>
+</header>
 
-  <div class="taxonomy-grid">
-    <div class="taxonomy-card">
-      <div class="taxonomy-header">
-        <h2>Domains</h2>
-        <form class="taxonomy-add" method="post" action="{{ url_for('taxonomy_add') }}">
-          <input type="hidden" name="category" value="domain">
-          <input name="value" placeholder="Add domain">
-          <button class="button primary tiny" type="submit">Add</button>
-        </form>
-      </div>
-      <div class="taxonomy-table">
-        <div class="taxonomy-table-head">
-          <span>Value</span>
-          <span>Actions</span>
-        </div>
-        {% for item in taxonomy.domains %}
-          <form class="taxonomy-row" method="post" action="{{ url_for('taxonomy_edit', taxonomy_id=item.id) }}">
-            <input name="value" value="{{ item.value }}">
-            <div class="taxonomy-actions">
-              <button class="button ghost tiny" type="submit">Save</button>
-              <button class="button danger tiny" type="submit" formaction="{{ url_for('taxonomy_delete', taxonomy_id=item.id) }}" formmethod="post">Delete</button>
-            </div>
-          </form>
-        {% else %}
-          <p class="muted">No domains yet.</p>
-        {% endfor %}
-      </div>
-    </div>
+<div class="option-groups">
+  {% for group in groups %}
+    <section class="option-group" id="{{ group.category }}">
+      <header class="option-group-head">
+        <h2>{{ group.label }}</h2>
+        <span class="mono muted">{{ group.entries|length }}</span>
+      </header>
 
-    <div class="taxonomy-card">
-      <div class="taxonomy-header">
-        <h2>Languages</h2>
-        <form class="taxonomy-add" method="post" action="{{ url_for('taxonomy_add') }}">
-          <input type="hidden" name="category" value="language">
-          <input name="value" placeholder="Add language">
-          <button class="button primary tiny" type="submit">Add</button>
-        </form>
-      </div>
-      <div class="taxonomy-table">
-        <div class="taxonomy-table-head">
-          <span>Value</span>
-          <span>Actions</span>
-        </div>
-        {% for item in taxonomy.languages %}
-          <form class="taxonomy-row" method="post" action="{{ url_for('taxonomy_edit', taxonomy_id=item.id) }}">
-            <input name="value" value="{{ item.value }}">
-            <div class="taxonomy-actions">
-              <button class="button ghost tiny" type="submit">Save</button>
-              <button class="button danger tiny" type="submit" formaction="{{ url_for('taxonomy_delete', taxonomy_id=item.id) }}" formmethod="post">Delete</button>
-            </div>
-          </form>
+      <ul class="option-list">
+        {% for item in group.entries %}
+          <li class="option-row">
+            {% if group.category == 'language' %}<i class="swatch" style="--c: {{ lang_color(item.value) }}"></i>{% endif %}
+            <form class="option-rename" method="post" action="{{ url_for('taxonomy_edit', taxonomy_id=item.id) }}">
+              {{ csrf_field() }}
+              <label class="visually-hidden" for="opt-{{ item.id }}">Rename {{ item.value }}</label>
+              <input id="opt-{{ item.id }}" name="value" value="{{ item.value }}" data-original="{{ item.value }}" autocomplete="off">
+              <button class="button small primary option-save" type="submit">Save</button>
+            </form>
+            {% if item.usage %}
+              <a class="usage mono" href="{{ url_for('datasets_index', **{filter_param[group.category]: item.value}) }}">{{ item.usage }} dataset{{ '' if item.usage == 1 else 's' }}</a>
+            {% else %}
+              <span class="usage mono muted">unused</span>
+            {% endif %}
+            <form method="post" action="{{ url_for('taxonomy_delete', taxonomy_id=item.id) }}" data-confirm="Delete “{{ item.value }}”?">
+              {{ csrf_field() }}
+              <button class="icon-button small" type="submit" {% if item.usage %}disabled title="In use. Rename it to merge, or change those datasets first."{% else %}title="Delete"{% endif %} aria-label="Delete {{ item.value }}">
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/></svg>
+              </button>
+            </form>
+          </li>
         {% else %}
-          <p class="muted">No languages yet.</p>
+          <li class="muted option-empty">Nothing here yet.</li>
         {% endfor %}
-      </div>
-    </div>
+      </ul>
 
-    <div class="taxonomy-card">
-      <div class="taxonomy-header">
-        <h2>Dataset types</h2>
-        <form class="taxonomy-add" method="post" action="{{ url_for('taxonomy_add') }}">
-          <input type="hidden" name="category" value="dataset_type">
-          <input name="value" placeholder="Add type">
-          <button class="button primary tiny" type="submit">Add</button>
-        </form>
-      </div>
-      <div class="taxonomy-table">
-        <div class="taxonomy-table-head">
-          <span>Value</span>
-          <span>Actions</span>
-        </div>
-        {% for item in taxonomy.dataset_types %}
-          <form class="taxonomy-row" method="post" action="{{ url_for('taxonomy_edit', taxonomy_id=item.id) }}">
-            <input name="value" value="{{ item.value }}">
-            <div class="taxonomy-actions">
-              <button class="button ghost tiny" type="submit">Save</button>
-              <button class="button danger tiny" type="submit" formaction="{{ url_for('taxonomy_delete', taxonomy_id=item.id) }}" formmethod="post">Delete</button>
-            </div>
-          </form>
-        {% else %}
-          <p class="muted">No dataset types yet.</p>
-        {% endfor %}
-      </div>
-    </div>
-
-    <div class="taxonomy-card">
-      <div class="taxonomy-header">
-        <h2>Formats</h2>
-        <form class="taxonomy-add" method="post" action="{{ url_for('taxonomy_add') }}">
-          <input type="hidden" name="category" value="format">
-          <input name="value" placeholder="Add format">
-          <button class="button primary tiny" type="submit">Add</button>
-        </form>
-      </div>
-      <div class="taxonomy-table">
-        <div class="taxonomy-table-head">
-          <span>Value</span>
-          <span>Actions</span>
-        </div>
-        {% for item in taxonomy.formats %}
-          <form class="taxonomy-row" method="post" action="{{ url_for('taxonomy_edit', taxonomy_id=item.id) }}">
-            <input name="value" value="{{ item.value }}">
-            <div class="taxonomy-actions">
-              <button class="button ghost tiny" type="submit">Save</button>
-              <button class="button danger tiny" type="submit" formaction="{{ url_for('taxonomy_delete', taxonomy_id=item.id) }}" formmethod="post">Delete</button>
-            </div>
-          </form>
-        {% else %}
-          <p class="muted">No formats yet.</p>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</section>
+      <form class="option-add" method="post" action="{{ url_for('taxonomy_add') }}">
+        {{ csrf_field() }}
+        <input type="hidden" name="category" value="{{ group.category }}">
+        <label class="visually-hidden" for="add-{{ group.category }}">New {{ group.label|lower }} value</label>
+        <input id="add-{{ group.category }}" name="value" placeholder="Add {{ group.label|lower|replace('ies', 'y')|trim('s') }}…" autocomplete="off" required>
+        <button class="button ghost small" type="submit">Add</button>
+      </form>
+    </section>
+  {% endfor %}
+</div>
 {% endblock %}

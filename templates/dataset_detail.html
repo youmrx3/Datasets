@@ -1,91 +1,125 @@
 {% extends 'base.html' %}
+{% from '_macros.html' import lang_chip, star_button, csrf_field with context %}
+{% set title = dataset.name %}
 {% block content %}
-<section class="panel detail-panel">
-  <div class="results-head">
-    <div>
-      <p class="eyebrow">Dataset detail</p>
-      <h1>{{ dataset.name }}</h1>
-      <p class="lede">{{ dataset.description or 'No description provided yet.' }}</p>
-    </div>
-    <div class="detail-actions">
-      {% if dataset.local_path %}
-        <a class="button ghost folder-link" href="{{ url_for('open_dataset_folder', dataset_id=dataset.id) }}">Open folder</a>
-        <button class="button ghost" type="button" data-copy-folder="{{ dataset.local_path }}">Copy path</button>
-      {% endif %}
-      <a class="button ghost" href="{{ url_for('edit_dataset', dataset_id=dataset.id) }}">Edit</a>
-      <form method="post" action="{{ url_for('remove_dataset', dataset_id=dataset.id) }}" onsubmit="return confirm('Delete this dataset?');">
-        <button class="button danger" type="submit">Delete</button>
-      </form>
-    </div>
+<a class="back-link" href="{{ url_for('datasets_index') }}" data-back>
+  <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+  All datasets
+</a>
+
+<header class="detail-head">
+  <div class="detail-title">
+    <h1 class="display" dir="auto">{{ dataset.name }}</h1>
+    {{ star_button(dataset, 'large') }}
   </div>
+  <div class="detail-actions">
+    <a class="button ghost" href="{{ dataset.edit_url }}">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/></svg>
+      Edit
+    </a>
+  </div>
+</header>
 
-  <div class="detail-layout">
-    <article class="metadata-card">
-      {% if dataset.attachments %}
-        <a class="hero-preview" href="#" data-image-preview="{{ dataset.attachments[0].url }}" data-image-title="{{ dataset.attachments[0].original_filename }}">
-          <img src="{{ dataset.attachments[0].url }}" alt="{{ dataset.attachments[0].original_filename }}">
-        </a>
+<div class="tag-row">
+  {% for language in dataset.languages_list %}{{ lang_chip(language) }}{% endfor %}
+  {% for modality in dataset.types_list %}<span class="tag">{{ modality }}</span>{% endfor %}
+  {% if dataset.format %}<span class="tag mono">{{ dataset.format }}</span>{% endif %}
+  {% if dataset.domain %}<span class="tag">{{ dataset.domain }}</span>{% endif %}
+</div>
+
+<div class="detail-layout">
+  <article class="detail-main">
+    <section class="prose-block">
+      <h2 class="section-label">Description</h2>
+      {% if dataset.description %}
+        <p class="lede" dir="auto">{{ dataset.description }}</p>
       {% else %}
-        <div class="hero-preview fallback">
-          <div class="card-preview-fallback">
-            <span class="fallback-eyebrow">Dataset preview</span>
-            <strong>{{ dataset.name }}</strong>
-            <p>{{ dataset.description or 'No description provided yet.' }}</p>
-            <div class="fallback-meta">
-              <span>{{ dataset.domain or 'Uncategorized' }}</span>
-              <span>{{ dataset.dataset_type or 'Dataset' }}</span>
-              <span>{{ dataset.languages or 'No languages listed' }}</span>
-            </div>
-          </div>
-        </div>
+        <p class="muted">No description yet. <a class="text-link" href="{{ dataset.edit_url }}">Add one</a></p>
       {% endif %}
+    </section>
 
-      <div class="chips-row">
-        {% if dataset.favorite %}<span class="chip favorite">Important</span>{% endif %}
-        {% if dataset.domain %}<span class="chip">{{ dataset.domain }}</span>{% endif %}
-        {% if dataset.dataset_type %}<span class="chip">{{ dataset.dataset_type }}</span>{% endif %}
-        {% if dataset.format %}<span class="chip">{{ dataset.format }}</span>{% endif %}
-      </div>
+    <section class="prose-block">
+      <h2 class="section-label">Notes</h2>
+      {% if dataset.notes %}
+        <div class="notes" dir="auto">{{ dataset.notes }}</div>
+      {% else %}
+        <p class="muted">No research notes yet.</p>
+      {% endif %}
+    </section>
 
-      <dl class="meta-grid">
-        <div><dt>Languages</dt><dd>{{ dataset.languages or 'Not specified' }}</dd></div>
-        <div><dt>Source</dt><dd>{% if dataset.source %}<a href="{{ dataset.source }}" target="_blank" rel="noreferrer">Open source</a>{% else %}Not specified{% endif %}</dd></div>
-        <div><dt>Local folder</dt><dd>{% if dataset.local_path %}<a class="folder-link" href="{{ url_for('open_dataset_folder', dataset_id=dataset.id) }}">Open folder</a>{% else %}Not specified{% endif %}</dd></div>
-        <div><dt>Size</dt><dd>{{ dataset.size or 'Not specified' }}</dd></div>
-        <div><dt>License</dt><dd>{{ dataset.license or 'Not specified' }}</dd></div>
-        <div><dt>Tags</dt><dd>{{ dataset.tags or 'Not specified' }}</dd></div>
-        <div><dt>Created</dt><dd>{{ dataset.created_at }}</dd></div>
-        <div><dt>Updated</dt><dd>{{ dataset.updated_at }}</dd></div>
-      </dl>
-
-      <section class="notes-block">
-        <h2>About</h2>
-        <p>{{ dataset.notes or 'No notes yet.' }}</p>
-      </section>
-    </article>
-
-    <aside class="attachments-panel">
-      <div class="attachments-head">
-        <h2>Images and screenshots</h2>
-        <span>{{ dataset.attachments|length }} file(s)</span>
-      </div>
+    <section class="prose-block">
+      <h2 class="section-label">Images <span class="muted mono">{{ dataset.attachments|length }}</span></h2>
       {% if dataset.attachments %}
-        <div class="attachments-grid detail-grid">
+        <div class="gallery" data-gallery>
           {% for attachment in dataset.attachments %}
-            <figure class="attachment-card">
-              <button class="attachment-preview-button" type="button" data-image-preview="{{ attachment.url }}" data-image-title="{{ attachment.original_filename }}">
-                <img src="{{ attachment.url }}" alt="{{ attachment.original_filename }}">
-              </button>
-              <figcaption>{{ attachment.original_filename }}</figcaption>
-            </figure>
+            <button class="gallery-item" type="button" data-image-preview="{{ attachment.url }}" data-image-title="{{ attachment.original_filename }}">
+              <img src="{{ attachment.url }}" alt="{{ attachment.original_filename }}" loading="lazy">
+              <span class="gallery-caption">{{ attachment.original_filename }}</span>
+            </button>
           {% endfor %}
         </div>
       {% else %}
-        <div class="empty-state inline">
-          <p>No attachments uploaded yet.</p>
-        </div>
+        <p class="muted">No screenshots yet. Add them from <a class="text-link" href="{{ dataset.edit_url }}">Edit</a>, or paste one straight from your clipboard there.</p>
       {% endif %}
-    </aside>
-  </div>
-</section>
+    </section>
+  </article>
+
+  <aside class="facts">
+    <dl>
+      <div class="fact-hero">
+        <dt>Samples</dt>
+        <dd class="mono">{{ dataset.samples|thousands }}</dd>
+      </div>
+      <div><dt>Size as recorded</dt><dd>{{ dataset.size or '—' }}</dd></div>
+      <div><dt>License</dt><dd>{{ dataset.license or 'Not recorded' }}</dd></div>
+      <div>
+        <dt>Source</dt>
+        <dd>
+          {% if dataset.source_url %}
+            <a class="text-link" href="{{ dataset.source_url }}" target="_blank" rel="noopener noreferrer">{{ dataset.source_url|host }} ↗</a>
+          {% elif dataset.source %}
+            {{ dataset.source }}
+          {% else %}—{% endif %}
+        </dd>
+      </div>
+      <div>
+        <dt>Local folder</dt>
+        <dd>
+          {% if dataset.local_path %}
+            <span class="path mono" title="{{ dataset.folder_resolved }}">{{ dataset.local_path }}</span>
+            {% if can_open_folders %}
+              <span class="folder-status {{ 'ok' if dataset.folder_exists else 'missing' }}">
+                {{ 'Found on this computer' if dataset.folder_exists else 'Not found on this computer' }}
+              </span>
+            {% endif %}
+            <span class="fact-actions">
+              {% if can_open_folders and dataset.folder_exists %}
+                <button class="button ghost small" type="button" data-open-folder="{{ dataset.id }}">Open folder</button>
+              {% endif %}
+              <button class="button ghost small" type="button" data-copy="{{ dataset.folder_resolved or dataset.local_path }}">Copy path</button>
+            </span>
+          {% else %}
+            <span class="muted">Not set</span>
+          {% endif %}
+        </dd>
+      </div>
+      <div>
+        <dt>Tags</dt>
+        <dd>
+          {% for tag in dataset.tags_list %}<a class="tag small" href="{{ url_for('datasets_index', q=tag) }}">#{{ tag }}</a>{% else %}—{% endfor %}
+        </dd>
+      </div>
+      <div class="fact-pair">
+        <div><dt>Added</dt><dd class="mono">{{ dataset.created_at|nice_date }}</dd></div>
+        <div><dt>Edited</dt><dd class="mono">{{ dataset.updated_at|nice_date }}</dd></div>
+      </div>
+    </dl>
+
+    <form class="danger-zone" method="post" action="{{ url_for('remove_dataset', dataset_id=dataset.id) }}"
+          data-confirm="Delete “{{ dataset.name }}” and its {{ dataset.attachments|length }} image(s)? This can't be undone.">
+      {{ csrf_field() }}
+      <button class="link-button danger" type="submit">Delete dataset</button>
+    </form>
+  </aside>
+</div>
 {% endblock %}

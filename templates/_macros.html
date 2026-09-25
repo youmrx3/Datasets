@@ -1,0 +1,21 @@
+{% macro lang_color(name) -%}
+  {%- set slot = language_slots.get((name or '')|lower) -%}
+  {{ 'var(--series-%d)'|format(slot) if slot else 'var(--series-other)' }}
+{%- endmacro %}
+
+{% macro lang_chip(name) -%}
+  <span class="lang-chip"><i class="swatch" style="--c: {{ lang_color(name) }}"></i>{{ name }}</span>
+{%- endmacro %}
+
+{% macro star_button(dataset, size='') -%}
+  <button class="star-button {{ size }}" type="button" data-favorite="{{ dataset.id }}"
+    aria-pressed="{{ 'true' if dataset.favorite else 'false' }}"
+    aria-label="{{ 'Remove star' if dataset.favorite else 'Star this dataset' }}"
+    title="{{ 'Remove star' if dataset.favorite else 'Star this dataset' }}">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3.5 2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9L12 3.5Z"/></svg>
+  </button>
+{%- endmacro %}
+
+{% macro csrf_field() -%}
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+{%- endmacro %}

@@ -16,7 +16,7 @@
       "favorite": 0,
       "created_at": "2026-05-05T14:50:31Z",
       "updated_at": "2026-06-10T11:11:57Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\Shifaa_Arabic_Mental_Health_Consultations"
+      "local_path": "Shifaa_Arabic_Mental_Health_Consultations"
     },
     {
       "id": 11,
@@ -25,16 +25,16 @@
       "domain": "Mental health",
       "languages": "Multi",
       "source": "https://huggingface.co/datasets/moujar/MentalHealth-Darija",
-      "dataset_type": "text",
+      "dataset_type": "Text",
       "size": "51,093 examples / 52.72 MB",
-      "format": "csv",
+      "format": "CSV",
       "license": "",
       "notes": "MentalHealth-Darija Dataset\r\n\r\nLanguage: Moroccan Darija and English (parallel corpus)\r\n\r\nTask: Multi-class mental health text classification.\r\n\r\nSize: 51,093 instances.\r\n\r\nLabels (7): Anxiety, Bipolar, Depression, Normal, Personality Disorder, Stress, and Suicidal.\r\n\r\nData Format: Each instance contains an English sentence (text_en), its Darija counterpart (text), and a mental health label.\r\n\r\nExample:\r\n\r\nEnglish: \"I've been so restless lately.\"\r\nDarija: \"\u0643\u0646\u062d\u0633 \u0628\u0631\u0627\u0633\u064a \u0645\u0642\u0644\u0642 \u0647\u0627\u062f \u0627\u0644\u0623\u064a\u0627\u0645\"\r\nLabel: Anxiety\r\n\r\nClass Distribution: The dataset is imbalanced, with Normal (16,040) and Depression (15,094) being the largest classes, while Personality Disorder (895) is the smallest.\r\n\r\nDataset Split: No predefined train, validation, or test sets are provided. Researchers are recommended to create their own stratified splits.\r\n\r\nPurpose: Developed to support mental health detection and NLP research for Moroccan Darija, a low-resource Arabic dialect.\r\n\r\nLicense: MIT License.\r\n\r\nAuthors: Abderrahmane Moujar and Otmane El Bourki.",
       "tags": "",
       "favorite": 0,
       "created_at": "2026-05-05T21:20:42Z",
       "updated_at": "2026-06-10T11:14:51Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\MentalHealth-Darija"
+      "local_path": "MentalHealth-Darija"
     },
     {
       "id": 12,
@@ -43,16 +43,16 @@
       "domain": "Mental health",
       "languages": "Arabic",
       "source": "https://github.com/MuhammadHelmyOmar/Chezlong",
-      "dataset_type": "text",
+      "dataset_type": "Text",
       "size": "664 samples / 6.8 MB",
-      "format": "csv",
+      "format": "CSV",
       "license": "",
       "notes": "Cleaned and preprocessed Arabic psychological texts scraped from nafsy.net using NLTK and HuggingFace.\r\nApplied BERTopic modeling to explore topic distributions and deduplicate the data.\r\nSynthesized a QA dataset from the original corpus using GPT to support potential fine-tuning.\r\nStored chunked text embeddings in Pinecone to enable scalable and efficient semantic search.\r\nImplemented similarity search to retrieve contextually relevant passages for user queries.\r\nPrompt-engineered the engine's query to integrate GPT-3.5 with Retrieval Augmented Generation (RAG), ensuring domain-relevant answers.\r\nConnected all previous components within a LangChain pipeline for end-to-end user query handling.\r\nExperimented with multiple LLMs and semantic embedding models to optimize performance for Arabic.",
       "tags": "",
       "favorite": 0,
       "created_at": "2026-05-05T22:05:28Z",
       "updated_at": "2026-06-10T11:15:49Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\Chezlong"
+      "local_path": "Chezlong"
     },
     {
       "id": 13,
@@ -61,7 +61,7 @@
       "domain": "Mental health",
       "languages": "Arabic",
       "source": "https://huggingface.co/datasets/Williamsanderson/MedQA-Darija-MultiLingual",
-      "dataset_type": "text,audio",
+      "dataset_type": "Text, Audio",
       "size": "267,627 samples / 100 GB",
       "format": "Parquet",
       "license": "",
@@ -70,16 +70,16 @@
       "favorite": 0,
       "created_at": "2026-05-16T22:33:45Z",
       "updated_at": "2026-06-10T11:17:12Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\MentalHealth-Darija"
+      "local_path": "MedQA-Darija-MultiLingual"
     },
     {
       "id": 15,
       "name": "kurtis_mental_health_final",
       "description": "Mental Health Conversational Dataset Language: English. Task: Mental Health Dialogue Generation, Conversational AI, and Empathetic Response Generation. Size: Approximately 4,500 training samples.",
       "domain": "Mental health",
-      "languages": "english",
+      "languages": "English",
       "source": "https://huggingface.co/datasets/mrs83/kurtis_mental_health_final",
-      "dataset_type": "text",
+      "dataset_type": "Text",
       "size": "11491 samples / 6.95 MB",
       "format": "Parquet",
       "license": "",
@@ -88,14 +88,14 @@
       "favorite": 0,
       "created_at": "2026-05-18T20:37:48Z",
       "updated_at": "2026-06-10T11:24:32Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\kurtis\\kurtis_mental_health_final"
+      "local_path": "kurtis/kurtis_mental_health_final"
     },
     {
       "id": 16,
       "name": "mental_health_therapy",
       "description": "This dataset is a combination of a real-therapy conversation from a conselchat forum and a synthetic discussion generated with chatGpt.",
       "domain": "Mental health",
-      "languages": "english",
+      "languages": "English",
       "source": "https://huggingface.co/datasets/fadodr/mental_health_therapy",
       "dataset_type": "Text",
       "size": "12,258 samples / 17.2 mb",
@@ -106,14 +106,14 @@
       "favorite": 0,
       "created_at": "2026-06-05T16:05:31Z",
       "updated_at": "2026-06-10T11:25:35Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\mental_health_therapy"
+      "local_path": "mental_health_therapy"
     },
     {
       "id": 17,
       "name": "counsel-chat",
       "description": "Scrape of Counselchat.com's forum. CounselChat.com is an example of an expert community. It is a platform to help counselors build their reputation and make meaningful contact with potential clients. On the site, therapists respond to questions posed by clients, and users can like responses that they find most helpful. It\u2019s a nice idea and lends itself to some interesting data. This data contains expert responses by licensed clinicialns to questions posed by individuals.",
       "domain": "Mental health",
-      "languages": "english",
+      "languages": "English",
       "source": "https://huggingface.co/datasets/nbertagnolli/counsel-chat",
       "dataset_type": "Text",
       "size": "2775 samples / 4.14 MB",
@@ -124,14 +124,14 @@
       "favorite": 0,
       "created_at": "2026-06-05T16:26:51Z",
       "updated_at": "2026-06-10T12:52:26Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\counsel-chat"
+      "local_path": "counsel-chat"
     },
     {
       "id": 18,
       "name": "mental_health_counseling_conversations",
       "description": "This dataset is a compilation of high-quality, real one-on-one mental health counseling conversations between individuals and licensed professionals. Each exchange is structured as a clear question\u2013answer pair, making it directly suitable for fine-tuning or instruction-tuning language models that need to handle sensitive, empathetic, and contextually aware dialogue.",
       "domain": "Mental health",
-      "languages": "english",
+      "languages": "English",
       "source": "https://huggingface.co/datasets/Amod/mental_health_counseling_conversations",
       "dataset_type": "Text",
       "size": "3512 samples / 4.81 MB",
@@ -142,14 +142,14 @@
       "favorite": 1,
       "created_at": "2026-06-05T16:31:49Z",
       "updated_at": "2026-06-10T12:51:42Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\mental_health_counseling_conversations"
+      "local_path": "mental_health_counseling_conversations"
     },
     {
       "id": 19,
       "name": "MentalChat16K",
       "description": "This dataset consists of 9,775 synthetic conversations between a counselor and a client, covering 33 mental health topics such as  Relationships,  Anxiety,  Depression,  Intimacy, and  Family Conflict. The conversations were generated using the OpenAI GPT-3.5 Turbo model and a customized adaptation of the Airoboros self-generation framework.",
       "domain": "Mental health",
-      "languages": "english",
+      "languages": "English",
       "source": "https://huggingface.co/datasets/ShenLab/MentalChat16K",
       "dataset_type": "Text",
       "size": "16.084 samples / 46.4 MB",
@@ -160,14 +160,14 @@
       "favorite": 0,
       "created_at": "2026-06-05T16:55:13Z",
       "updated_at": "2026-06-10T11:31:06Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\MentalChat16K"
+      "local_path": "MentalChat16K"
     },
     {
       "id": 20,
       "name": "mental-health",
       "description": "",
       "domain": "Mental health",
-      "languages": "english",
+      "languages": "English",
       "source": "https://huggingface.co/datasets/marmikpandya/mental-health",
       "dataset_type": "Text",
       "size": "13,358 samples / 10.1 MB",
@@ -178,14 +178,14 @@
       "favorite": 0,
       "created_at": "2026-06-05T16:58:04Z",
       "updated_at": "2026-06-10T11:35:57Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\mental-health"
+      "local_path": "mental-health"
     },
     {
       "id": 21,
       "name": "arnaiztech/llms-mental-health-crisis-responses",
       "description": "This dataset repo contains the response-side artifacts prepared for Hugging Face from the paper Between Help and Harm: An Evaluation of Mental Health Crisis Handling by LLMs, published in JMIR Mental Health.",
       "domain": "Mental health",
-      "languages": "english",
+      "languages": "English",
       "source": "https://huggingface.co/datasets/arnaiztech/llms-mental-health-crisis-responses",
       "dataset_type": "Text",
       "size": "194,856 samples / 335 MB",
@@ -196,7 +196,7 @@
       "favorite": 0,
       "created_at": "2026-06-05T21:35:46Z",
       "updated_at": "2026-06-10T11:35:09Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\llms-mental-health-crisis-responses"
+      "local_path": "llms-mental-health-crisis-responses"
     },
     {
       "id": 22,
@@ -214,7 +214,7 @@
       "favorite": 0,
       "created_at": "2026-06-05T22:02:50Z",
       "updated_at": "2026-06-10T12:55:20Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\Student-Mental-Health-Counseling-10K"
+      "local_path": "Student-Mental-Health-Counseling-10K"
     },
     {
       "id": 23,
@@ -232,7 +232,7 @@
       "favorite": 0,
       "created_at": "2026-06-07T14:03:34Z",
       "updated_at": "2026-06-10T12:55:40Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\Arabic Depression Tweets Dataset"
+      "local_path": "Arabic Depression Tweets Dataset"
     },
     {
       "id": 24,
@@ -250,7 +250,7 @@
       "favorite": 0,
       "created_at": "2026-06-07T14:32:18Z",
       "updated_at": "2026-06-10T11:42:33Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\An-Optimized-Deep-Learning-Approach-for-Suicide-Detection-through-Arabic-Tweets"
+      "local_path": "An-Optimized-Deep-Learning-Approach-for-Suicide-Detection-through-Arabic-Tweets"
     },
     {
       "id": 25,
@@ -304,14 +304,14 @@
       "favorite": 0,
       "created_at": "2026-06-08T17:36:58Z",
       "updated_at": "2026-06-10T12:56:56Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\Arabic_Depression_15.000_Tweets_Annotated"
+      "local_path": "Arabic_Depression_15.000_Tweets_Annotated"
     },
     {
       "id": 28,
       "name": "Reddit C-SSRS Suicide Dataset",
       "description": "",
       "domain": "Mental health",
-      "languages": "english",
+      "languages": "English",
       "source": "https://zenodo.org/records/2667859",
       "dataset_type": "Text",
       "size": "500 instances / 3.6 MB",
@@ -322,16 +322,16 @@
       "favorite": 0,
       "created_at": "2026-06-08T23:31:23Z",
       "updated_at": "2026-06-10T12:47:36Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\Reddit C-SSRS Suicide Dataset"
+      "local_path": "Reddit C-SSRS Suicide Dataset"
     },
     {
       "id": 29,
       "name": "DAIC-WOZ Database",
       "description": "DAIC-WOZ Database\r\nThis database contains clinical interviews designed to support the diagnosis of psychological distress conditions such as anxiety, depression, and post-traumatic stress disorder.\r\n\r\nThese interviews were collected as part of a larger effort to create a computer agent that interviews people and identifies verbal and nonverbal indicators of mental illness (DeVault et al., 2014).  \r\n\r\nData collected include audio and video recordings and extensive questionnaire responses; this part of the corpus includes data from the Wizard-of-Oz interviews, conducted by an animated virtual interviewer called Ellie, controlled by a human interviewer in another room.",
       "domain": "Mental health",
-      "languages": "english",
+      "languages": "English",
       "source": "https://dcapswoz.ict.usc.edu/",
-      "dataset_type": "text , audio , csv",
+      "dataset_type": "Text, Audio",
       "size": "189 sessions",
       "format": "Multiple",
       "license": "",
@@ -358,14 +358,14 @@
       "favorite": 1,
       "created_at": "2026-06-10T09:39:31Z",
       "updated_at": "2026-06-10T12:48:54Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets\\MentalQA-main\\MentalQA-main"
+      "local_path": "MentalQA-main/MentalQA-main"
     },
     {
       "id": 31,
       "name": "Mental Health Social Posts Dataset",
       "description": "This dataset contains 1,000 anonymized social media posts labeled for signs of mental health conditions including depression, anxiety, suicidal thoughts, or no apparent issues. It is designed to help researchers and developers build early warning systems, mental health support chatbots, or other AI tools to detect and assist individuals experiencing mental health challenges. The posts are synthetic but modeled to reflect realistic language and emotional cues commonly found on social media.",
       "domain": "Mental health",
-      "languages": "english",
+      "languages": "English",
       "source": "https://www.kaggle.com/datasets/shamimhasan8/mental-health-social-posts-dataset",
       "dataset_type": "Text",
       "size": "1000 samples",
@@ -376,7 +376,7 @@
       "favorite": 0,
       "created_at": "2026-06-10T09:53:46Z",
       "updated_at": "2026-06-10T09:53:46Z",
-      "local_path": "C:\\Users\\YOU-BER\\Desktop\\downloaded datasets"
+      "local_path": "mental_health_social_media_posts"
     }
   ],
   "attachments": [
@@ -615,24 +615,6 @@
       "created_at": "2026-06-05T15:25:43Z"
     },
     {
-      "id": 11,
-      "category": "dataset_type",
-      "value": "text,audio",
-      "created_at": "2026-06-05T15:25:43Z"
-    },
-    {
-      "id": 13,
-      "category": "language",
-      "value": "french",
-      "created_at": "2026-06-05T15:25:43Z"
-    },
-    {
-      "id": 14,
-      "category": "language",
-      "value": "english",
-      "created_at": "2026-06-05T15:25:43Z"
-    },
-    {
       "id": 20,
       "category": "format",
       "value": "CSV",
@@ -675,16 +657,28 @@
       "created_at": "2026-06-05T15:53:50Z"
     },
     {
-      "id": 21938,
-      "category": "dataset_type",
-      "value": "text , audio , csv",
-      "created_at": "2026-06-09T11:40:02Z"
-    },
-    {
       "id": 22686,
       "category": "format",
       "value": "Multiple",
       "created_at": "2026-06-09T11:41:01Z"
+    },
+    {
+      "id": 89479,
+      "category": "dataset_type",
+      "value": "Audio",
+      "created_at": "2026-09-25T12:57:47Z"
+    },
+    {
+      "id": 89629,
+      "category": "language",
+      "value": "English",
+      "created_at": "2026-09-25T13:57:54Z"
+    },
+    {
+      "id": 89630,
+      "category": "language",
+      "value": "French",
+      "created_at": "2026-09-25T13:57:54Z"
     }
   ],
   "settings": [
