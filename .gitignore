@@ -9,3 +9,14 @@ uploads/
 
 # Raw dataset files (large, kept locally only)
 downloaded datasets/
+
+# Private research documents (kept local, repo is public)
+*.tex
+Academic_Paper_*
+Benchmarking_and_Chatbot_Strategy.md
+Dataset_Auditing_*
+Explanation_Guide_Simple_Language.md
+Supervisor_QA_Preparation.md
+
+# Local tooling
+.claude/
