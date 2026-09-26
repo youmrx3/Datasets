@@ -19,6 +19,11 @@ mental-health corpora (Arabic, Darija, English) but usable for any domain.
 - Options page: rename a language, format, etc. and every dataset updates.
   Rename to an existing value to merge the two.
 - CSV (Excel-friendly, UTF-8 BOM for Arabic) and JSON export of the current view.
+- **PDF catalogue:** Export → PDF catalogue opens a print-ready A4 edition
+  (cover with statistics and chart, contents table, one fact sheet per dataset
+  with description, notes and every image) and the print dialog. Choose
+  *Save as PDF* and enable *Background graphics*. It follows the current filters
+  and sort order; images and notes can be switched off. Also at `/catalogue`.
 - Light and dark themes.
 
 ## Run locally

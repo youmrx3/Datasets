@@ -187,6 +187,7 @@
       tableBtn: $('#tableViewBtn'),
       exportCsv: $('#exportCsv'),
       exportJson: $('#exportJson'),
+      exportPdf: $('#exportPdf'),
       spectrum: $('.spectrum'),
       tip: $('#chartTip'),
     };
@@ -374,6 +375,9 @@
       const exportQuery = new URLSearchParams(state.params);
       el.exportCsv.href = `${app.exportCsv}?${exportQuery}`;
       el.exportJson.href = `${app.exportJson}?${exportQuery}`;
+      const pdfQuery = new URLSearchParams(state.params);
+      pdfQuery.set('print', '1');
+      el.exportPdf.href = `${app.catalogue}?${pdfQuery}`;
     }
 
     function setParam(key, value) {

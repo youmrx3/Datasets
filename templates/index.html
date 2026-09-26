@@ -126,9 +126,10 @@
       <details class="menu">
         <summary class="button ghost small">Export</summary>
         <div class="menu-panel">
+          <a id="exportPdf" href="{{ url_for('print_catalogue', print=1) }}" target="_blank" rel="noopener">PDF catalogue <span class="muted">to print</span></a>
           <a id="exportCsv" href="{{ url_for('export_csv') }}">CSV <span class="muted">for Excel</span></a>
           <a id="exportJson" href="{{ url_for('export_json') }}">JSON <span class="muted">for scripts</span></a>
-          <p class="menu-note muted">Exports what's shown, filters included.</p>
+          <p class="menu-note muted">Exports what's shown, filters and sort included.</p>
         </div>
       </details>
     </div>
@@ -157,6 +158,7 @@
     'apiUrl': url_for('datasets_api'),
     'exportCsv': url_for('export_csv'),
     'exportJson': url_for('export_json'),
+    'catalogue': url_for('print_catalogue'),
     'canOpenFolders': can_open_folders,
     'languageSlots': language_slots,
   } | tojson }};

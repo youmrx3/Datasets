@@ -496,7 +496,7 @@ def fetch_dataset(dataset_id: int) -> dict | None:
     return dataset_from_row(row, include_attachments=True) if row else None
 
 
-def query_datasets() -> list[dict]:
+def query_datasets(default_sort: str = "created_desc") -> list[dict]:
     args = request.args
     search = args.get("q", "").strip()
     clauses: list[str] = []
@@ -518,7 +518,7 @@ def query_datasets() -> list[dict]:
     if args.get("favorite") == "1":
         clauses.append("favorite = 1")
 
-    sort = args.get("sort", "created_desc")
+    sort = args.get("sort") or default_sort
     order_by = {
         "created_desc": "created_at DESC, id DESC",
         "created_asc": "created_at ASC, id ASC",
@@ -966,6 +966,57 @@ def export_json():
         "Content-Type": "application/json; charset=utf-8",
         "Content-Disposition": f'attachment; filename="datasets-{stamp}.json"',
     }
+
+
+@app.route("/catalogue")
+def print_catalogue() -> str:
+    """Printable A4 catalogue of the current (filtered) collection, saved as PDF from the browser."""
+    datasets = query_datasets(default_sort="name_asc")
+    for index, dataset in enumerate(datasets, start=1):
+        dataset["attachments"] = get_attachments(dataset["id"])
+        dataset["number"] = f"D{index:02d}"
+        dataset["height"] = spectrum_height(dataset["samples"])
+        folder = resolve_local_path(dataset.get("local_path"))
+        dataset["folder_resolved"] = str(folder) if folder else ""
+
+    languages: dict[str, int] = {}
+    for dataset in datasets:
+        for language in dataset["languages_list"]:
+            languages[language] = languages.get(language, 0) + 1
+
+    active_filters = [
+        (label, request.args[key])
+        for key, label in (("q", "Search"), ("language", "Language"), ("dataset_type", "Modality"),
+                           ("format", "Format"), ("domain", "Domain"))
+        if request.args.get(key, "").strip()
+    ]
+    if request.args.get("favorite") == "1":
+        active_filters.append(("Only", "starred datasets"))
+
+    args = {key: value for key, value in request.args.items() if key != "print"}
+    filters = {key: value for key, value in args.items() if key not in {"images", "notes"}}
+    include_images = args.get("images", "1") != "0"
+    include_notes = args.get("notes", "1") != "0"
+
+    return render_template(
+        "catalogue.html",
+        back_url=url_for("datasets_index", **filters),
+        images_url=url_for("print_catalogue", **{**args, "images": "0" if include_images else "1"}),
+        notes_url=url_for("print_catalogue", **{**args, "notes": "0" if include_notes else "1"}),
+        datasets=datasets,
+        spectrum=sorted(datasets, key=lambda d: d["samples"] or 0, reverse=True),
+        languages=sorted(languages.items(), key=lambda item: (-item[1], item[0].lower())),
+        total_samples=sum(d["samples"] or 0 for d in datasets),
+        image_count=sum(len(d["attachments"]) for d in datasets),
+        no_language=sum(1 for d in datasets if not d["languages_list"]),
+        active_filters=active_filters,
+        include_images=include_images,
+        include_notes=include_notes,
+        auto_print=request.args.get("print") == "1",
+        generated=datetime.now().strftime("%d %B %Y"),
+        ticks=[{"label": label, "height": spectrum_height(value)}
+               for label, value in (("100", 100), ("1k", 1_000), ("10k", 10_000), ("100k", 100_000), ("1M", 1_000_000))],
+    )
 
 
 @app.errorhandler(404)

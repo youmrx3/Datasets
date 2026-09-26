@@ -1,0 +1,205 @@
+{% from '_macros.html' import lang_color with context %}
+{% set domains = datasets|map(attribute='domain')|select|unique|list %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dataset Catalogue – {{ generated }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='catalogue.css') }}">
+    <style>
+      @page {
+        @bottom-left { content: "Dataset Catalogue · {{ generated }}"; }
+      }
+      @page cover {
+        @bottom-left { content: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="screen-bar">
+      <a class="bar-back" href="{{ back_url }}">← Back to catalogue</a>
+      <div class="bar-options" role="group" aria-label="Include in the PDF">
+        <a class="bar-toggle" aria-pressed="{{ 'true' if include_images else 'false' }}" href="{{ images_url }}">Images</a>
+        <a class="bar-toggle" aria-pressed="{{ 'true' if include_notes else 'false' }}" href="{{ notes_url }}">Research notes</a>
+      </div>
+      <span class="bar-hint">In the print dialog choose <strong>Save as PDF</strong>, A4, and turn on <strong>Background graphics</strong>.</span>
+      <button class="bar-print" type="button" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+
+    <!-- Cover -------------------------------------------------------------->
+    <section class="sheet cover">
+      <div class="cover-brand">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#15202a"/><rect x="7" y="8" width="4" height="17" rx="1.5" fill="#2a78d6"/><rect x="14" y="13" width="4" height="12" rx="1.5" fill="#eb6834"/><rect x="21" y="18" width="4" height="7" rx="1.5" fill="#1baf7a"/></svg>
+        Dataset Catalogue
+      </div>
+
+      <div class="cover-title">
+        <p class="kicker">{{ domains|join(' · ') if domains else 'Research datasets' }}</p>
+        <h1>Research Dataset Catalogue</h1>
+        <p class="edition mono">Edition of {{ generated }}</p>
+      </div>
+
+      <dl class="cover-stats">
+        <div><dt>Datasets</dt><dd>{{ datasets|length }}</dd></div>
+        <div><dt>Samples</dt><dd>{{ total_samples|compact }}</dd></div>
+        <div><dt>Languages</dt><dd>{{ languages|length }}</dd></div>
+        <div><dt>Images</dt><dd>{{ image_count if include_images else '—' }}</dd></div>
+      </dl>
+
+      {% if active_filters %}
+        <p class="cover-filters">
+          Filtered edition:
+          {% for label, value in active_filters %}<span>{{ label }}: <strong>{{ value }}</strong></span>{% endfor %}
+        </p>
+      {% endif %}
+
+      {% if spectrum %}
+      <figure class="spectrum">
+        <figcaption>
+          <span class="spectrum-title">Samples per dataset <span class="muted">· log scale · colour = first language</span></span>
+          <span class="legend">
+            {% for language, count in languages %}
+              <span><i class="swatch" style="--c: {{ lang_color(language) }}"></i>{{ language }} <span class="muted mono">{{ count }}</span></span>
+            {% endfor %}
+            {% if no_language %}<span><i class="swatch" style="--c: var(--series-other)"></i>Not set <span class="muted mono">{{ no_language }}</span></span>{% endif %}
+          </span>
+        </figcaption>
+        <div class="plot">
+          <div class="axis">
+            {% for tick in ticks %}<span class="mono" style="bottom: {{ tick.height }}%">{{ tick.label }}</span>{% endfor %}
+          </div>
+          <div class="bars">
+            {% for tick in ticks %}<i class="gridline" style="bottom: {{ tick.height }}%"></i>{% endfor %}
+            {% for d in spectrum %}
+              <a class="bar {% if not d.samples %}is-unsized{% endif %}" href="#{{ d.number|lower }}"
+                 style="--h: {{ d.height if d.samples else 10 }}%; --c: {{ lang_color(d.languages_list[0] if d.languages_list else '') }}">
+                <span class="bar-fill"></span>
+                <span class="bar-label mono">{{ d.number }}</span>
+              </a>
+            {% endfor %}
+          </div>
+        </div>
+      </figure>
+      {% endif %}
+
+      <p class="cover-note">
+        {{ datasets|length }} entries, ordered
+        {{ {'name_asc': 'by name', 'created_desc': 'newest first', 'created_asc': 'oldest first', 'updated_desc': 'by last edit', 'samples_desc': 'by sample count, largest first', 'samples_asc': 'by sample count, smallest first'}.get(request.args.get('sort') or 'name_asc', 'by name') }}.
+        Each entry has a catalogue number (D01, D02…) used in the contents and on the chart above.
+        ★ marks starred datasets.
+      </p>
+    </section>
+
+    <!-- Contents ----------------------------------------------------------->
+    <section class="sheet contents">
+      <h2 class="section-title">Contents</h2>
+      <table class="contents-table">
+        <thead>
+          <tr>
+            <th>No.</th><th>Dataset</th><th>Languages</th><th>Modality</th><th>Format</th>
+            <th class="num">Samples</th><th>License</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for d in datasets %}
+            <tr>
+              <td class="mono"><a href="#{{ d.number|lower }}">{{ d.number }}</a></td>
+              <td class="contents-name">
+                <a href="#{{ d.number|lower }}" dir="auto">{{ d.name }}</a>{% if d.favorite %} <span class="star">★</span>{% endif %}
+              </td>
+              <td>
+                {% for language in d.languages_list %}<span class="lang"><i class="swatch" style="--c: {{ lang_color(language) }}"></i>{{ language }}</span>{% else %}<span class="muted">—</span>{% endfor %}
+              </td>
+              <td>{{ d.types_list|join(', ') or '—' }}</td>
+              <td class="mono">{{ d.format or '—' }}</td>
+              <td class="num mono">{{ d.samples|thousands }}</td>
+              <td>{{ d.license or '—' }}</td>
+            </tr>
+          {% else %}
+            <tr><td colspan="7" class="muted">No datasets match the current filters.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Entries ------------------------------------------------------------>
+    {% for d in datasets %}
+    <article class="sheet entry" id="{{ d.number|lower }}">
+      <header class="entry-head">
+        <span class="entry-number mono" style="--c: {{ lang_color(d.languages_list[0] if d.languages_list else '') }}">{{ d.number }}</span>
+        <div>
+          <h2 dir="auto">{{ d.name }}{% if d.favorite %} <span class="star" title="Starred">★</span>{% endif %}</h2>
+          <p class="entry-tags">
+            {% for language in d.languages_list %}<span class="lang"><i class="swatch" style="--c: {{ lang_color(language) }}"></i>{{ language }}</span>{% endfor %}
+            {% for modality in d.types_list %}<span class="tag">{{ modality }}</span>{% endfor %}
+            {% if d.format %}<span class="tag mono">{{ d.format }}</span>{% endif %}
+            {% if d.domain %}<span class="tag">{{ d.domain }}</span>{% endif %}
+          </p>
+        </div>
+      </header>
+
+      <dl class="facts">
+        <div class="fact-wide fact-samples">
+          <dt>Samples</dt>
+          <dd>
+            <span class="mono big">{{ d.samples|thousands }}</span>
+            {% if d.samples %}<span class="meter"><i style="--w: {{ d.height }}%; --c: {{ lang_color(d.languages_list[0] if d.languages_list else '') }}"></i></span>{% endif %}
+          </dd>
+        </div>
+        <div><dt>Size as recorded</dt><dd>{{ d.size or '—' }}</dd></div>
+        <div><dt>License</dt><dd>{{ d.license or 'Not recorded' }}</dd></div>
+        <div><dt>Languages</dt><dd>{{ d.languages_list|join(', ') or '—' }}</dd></div>
+        <div><dt>Modality · format</dt><dd>{{ d.types_list|join(', ') or '—' }} · {{ d.format or '—' }}</dd></div>
+        <div class="fact-wide">
+          <dt>Source</dt>
+          <dd class="break">
+            {% if d.source_url %}<a href="{{ d.source_url }}">{{ d.source_url }}</a>{% else %}{{ d.source or '—' }}{% endif %}
+          </dd>
+        </div>
+        <div class="fact-wide"><dt>Local folder</dt><dd class="mono break small">{{ d.folder_resolved or d.local_path or '—' }}</dd></div>
+        <div><dt>Tags</dt><dd>{% for tag in d.tags_list %}#{{ tag }}{% if not loop.last %}, {% endif %}{% else %}—{% endfor %}</dd></div>
+        <div><dt>Added · edited</dt><dd class="mono small">{{ d.created_at|nice_date }} · {{ d.updated_at|nice_date }}</dd></div>
+      </dl>
+
+      <section class="entry-block">
+        <h3>Description</h3>
+        {% if d.description %}<p class="description" dir="auto">{{ d.description }}</p>{% else %}<p class="muted">No description recorded.</p>{% endif %}
+      </section>
+
+      {% if include_notes %}
+      <section class="entry-block">
+        <h3>Research notes</h3>
+        {% if d.notes %}<div class="notes" dir="auto">{{ d.notes }}</div>{% else %}<p class="muted">No notes recorded.</p>{% endif %}
+      </section>
+      {% endif %}
+
+      {% if include_images and d.attachments %}
+      <section class="entry-block">
+        <h3>Images <span class="muted mono">{{ d.attachments|length }}</span></h3>
+        <div class="figures {% if d.attachments|length == 1 %}single{% endif %}">
+          {% for attachment in d.attachments %}
+            <figure>
+              <img src="{{ attachment.url }}" alt="{{ attachment.original_filename }}">
+              <figcaption><span class="mono">Fig. {{ d.number }}.{{ loop.index }}</span> {{ attachment.original_filename }}</figcaption>
+            </figure>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+    </article>
+    {% endfor %}
+
+    <script>
+      // Print once every image and font has loaded, so the PDF isn't missing screenshots.
+      {% if auto_print %}
+      window.addEventListener('load', () => {
+        document.fonts.ready.then(() => setTimeout(() => window.print(), 250));
+      });
+      {% endif %}
+    </script>
+  </body>
+</html>
