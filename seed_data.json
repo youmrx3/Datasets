@@ -203,7 +203,7 @@
       "name": "arafatanam/Student-Mental-Health-Counseling-10K",
       "description": "This dataset is derived from the original chillies/student-mental-health-counseling-vn dataset, which contains student mental health counseling conversations in Vietnamese.\r\n\r\nIn this version, 10,000 randomly sampled rows from the original dataset have been translated into English using Google Translator, making the data more accessible for English-speaking researchers and developers.",
       "domain": "Mental health",
-      "languages": "",
+      "languages": "English",
       "source": "",
       "dataset_type": "Text",
       "size": "10,000 samples / 4.66 MB",
@@ -213,7 +213,7 @@
       "tags": "",
       "favorite": 0,
       "created_at": "2026-06-05T22:02:50Z",
-      "updated_at": "2026-06-10T12:55:20Z",
+      "updated_at": "2026-10-10T20:24:28Z",
       "local_path": "Student-Mental-Health-Counseling-10K"
     },
     {
@@ -249,7 +249,7 @@
       "tags": "",
       "favorite": 0,
       "created_at": "2026-06-07T14:32:18Z",
-      "updated_at": "2026-06-10T11:42:33Z",
+      "updated_at": "2026-10-10T20:23:00Z",
       "local_path": "An-Optimized-Deep-Learning-Approach-for-Suicide-Detection-through-Arabic-Tweets"
     },
     {
@@ -275,7 +275,7 @@
       "name": "Arabic Trauma Corpus",
       "description": "Scraped from public Facebook pages using trauma-related Arabic keywords (e.g., psychological trauma, traumatic stress)Data is real.",
       "domain": "Mental health",
-      "languages": "",
+      "languages": "Arabic",
       "source": "https://aclanthology.org/2026.abjadnlp-1.50.pdf",
       "dataset_type": "",
       "size": "16,529 posts",
@@ -285,7 +285,7 @@
       "tags": "",
       "favorite": 0,
       "created_at": "2026-06-08T17:32:03Z",
-      "updated_at": "2026-06-10T11:44:14Z",
+      "updated_at": "2026-10-10T20:22:46Z",
       "local_path": ""
     },
     {
@@ -377,6 +377,42 @@
       "created_at": "2026-06-10T09:53:46Z",
       "updated_at": "2026-06-10T09:53:46Z",
       "local_path": "mental_health_social_media_posts"
+    },
+    {
+      "id": 32,
+      "name": "AnnoMI",
+      "description": "Despite the remarkable growth of research in recent years on the analysis of counselling conversations through natural language processing methods, the potential of this field has been greatly limited by the lack of access to publicly available therapy dialogues, especially those with expert annotations.\r\n\r\nTo benefit research community we release AnnoMI, containing 133 faithfully transcribed and expert-annotated demonstrations of high- and low-quality motivational interviewing (MI), an effective therapy strategy that evokes client motivation for positive change.\r\n\r\nTwo versions of AnnoMI are made available:\r\n\r\nAnnoMI-simple.csv: simplified version of AnnoMI consisting of high-level motivational interviewing annotation.\r\nAnnoMI-full.csv: full version containing further expert-annotated attributes for each utterance and additional annotation data.\r\nAnnoMI-simple\r\nAnnoMI-simple.csv has the following columns:\r\n\r\ntranscript_id: the unique numerical identifier of the conversation/transcript where this utterance belongs. Note that this identifier is NOT used for ordering, and it is only to distinguish between different conversations in the dataset.\r\nmi_quality: the MI quality demonstrated in the conversation/transcript where this utterance belongs. Either \"high\" or \"low\".\r\nvideo_title: the title of the original video of the conversation/transcript where this utterance belongs.\r\nvideo_url: the URL of the original video of the conversation/transcript where this utterance belongs.\r\ntopic: the topic(s) of the conversation/transcript where this utterance belongs.\r\nutterance_id: the unique numerical index of this utterance. Note that this identifier IS ordering-sensitive, and the utterance whose utterance_id is \r\nn\r\n is the \r\nn\r\n-th utterance of the conversation (identified by the transcript_id of this row) where this utterance belongs.\r\ninterlocutor: the interlocutor of this utterance. Either \"therapist\" or \"client\".\r\ntimestamp: the timestamp of this utterance w.r.t the original video of the conversation/transcript where this utterance belongs.\r\nutterance_text: the content of this utterance.\r\nmain_therapist_behaviour: the (main) therapist behaviour of this utterance. \"n/a\" if the utterance is a client utterance, otherwise one of [\"reflection\", \"question\", \"therapist_input\", \"other].\r\nclient_talk_type: the client talk type of this utterance. \"n/a\" if the utterance is a therapist utterance, otherwise one of [\"change\", \"neutral\", \"sustain\"].\r\nAnnoMI-full\r\nAnnoMI-full.csv retains all columns of the simple version, but adds the following ones:\r\n\r\nannotator_id: the ID of the annotator that made the annotations of this row. Ranges from 0 to 9.\r\ntherapist_input_exists: whether there is input from the therapist in this utterance. \"n/a\" if the utterance is a client utterance, otherwise one of [\"True\", \"False\"].\r\ntherapist_input_subtype: the therapist input subtype. \"n/a\" if the utterance is a client utterance or if therapist_input_exists is False, otherwise one of [\"information\", \"advice\", \"negotiation\", \"options\"].\r\nreflection_exists: whether there is reflection from the therapist in this utterance. \"n/a\" if the utterance is a client utterance, otherwise one of [\"True\", \"False\"]\r\nreflection_subtype: the reflection subtype. \"n/a\" if the utterance is a client utterance of if reflection_exists is False, otherwise one of [\"simple\", \"complex\"]\r\nquestion_exists: whether there is a question from the therapist in this utterance. \"n/a\" if the utterance is a client utterance, otherwise one of [\"True\", \"False\"]\r\nquestion_subtype: the question subtype. \"n/a\" if the utterance is a client utterance or if question_exists is False, otherwise one of [\"open\", \"closed\"]",
+      "domain": "Mental health",
+      "languages": "English",
+      "source": "https://github.com/uccollab/AnnoMI",
+      "dataset_type": "Audio, Text",
+      "size": "13552",
+      "format": "CSV",
+      "license": "",
+      "notes": "",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-10-10T20:28:11Z",
+      "updated_at": "2026-10-10T20:33:01Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\PHD\\03_datasets\\AnnoMI-main\\AnnoMI-main"
+    },
+    {
+      "id": 33,
+      "name": "Emotional-Support-Conversation",
+      "description": "Copyright \u00a9 2021 CoAI Group, Tsinghua University. All rights reserved. Data and codes are for academic research use only.\r\n2024-05-14\r\nAdded\r\nTo support future research, we release FailedESConv.json, 196 negative samples of emotional support conversations that were primarily dropped when we were collecting ESConv.\r\nOur rule to determine an effectively negative sample: (# of turn > 2 AND # of speaker > 1) AND ((post-conversation survey was done AND (negative emotion intensity does not decrease OR empathy score <=2 OR relevance score <=2 )) OR (the support-seeker did not finish the post-conversation survey AND the support-seeker's last feedback score <= 2) )\r\nData and codes for the ACL 2021 paper: Towards Emotional Support Dialog Systems\r\n\r\nIf you use our codes or your research is related to our paper, please kindly cite our paper:\r\n\r\n@inproceedings{liu-etal-2021-towards,\r\n  title={Towards Emotional Support Dialog Systems},\r\n  author={Liu, Siyang  and \r\n    Zheng, Chujie  and \r\n    Demasi, Orianna  and \r\n    Sabour, Sahand  and \r\n    Li, Yu  and \r\n    Yu, Zhou  and \r\n    Jiang, Yong  and \r\n    Huang, Minlie},\r\n  booktitle={ACL},\r\n  year={2021}\r\n}\r\nData\r\nThe corpus file is ESConv.json. We have collected more conversations with more problem topics. ESConv now contains 1,300 conversations with 10 topic problems.\r\n\r\nStatistics\r\nProblem Category\r\nProblem Category\tongoing depression\tbreakup with partner\tjob crisis\tproblems with friends\tacademic pressure\tprocras-\r\ntination*\talcohol abuse*\tissues with parent*\tsleep problems*\tappearance anxiety*\tschool bullying*\tissues with children*\r\nNumber\t351\t239\t280\t179\t156\t13\t12\t18\t28\t12\t2\t10\r\n* denotes the new topics added during the second collection. We hope new data supports the future research in transferring the ability of models from old topics to new ones.\r\n\r\nStrategy Category\r\nStrategy Category\tNumber\r\nQuestions\t3801(20.7%)\r\nSelf-disclosure\t1713(9.3%)\r\nAffirmation and Reassurance\t2827(15.4%)\r\nProviding Suggestions\t2954(16.1%)\r\nOther\t3661(18.3%) / 3341(18.2%)\r\nReflection of feelings\t1436(7.8%)\r\nInformation\t1215(6.6%)\r\nRestatement or Paraphrasing\t1089(5.9%)",
+      "domain": "Mental health",
+      "languages": "English",
+      "source": "https://github.com/thu-coai/Emotional-Support-Conversation",
+      "dataset_type": "",
+      "size": "1300",
+      "format": "JSON",
+      "license": "",
+      "notes": "",
+      "tags": "",
+      "favorite": 0,
+      "created_at": "2026-10-10T20:38:34Z",
+      "updated_at": "2026-10-10T20:38:34Z",
+      "local_path": "C:\\Users\\YOU-BER\\Desktop\\PHD\\03_datasets\\Emotional-Support-Conversation-main\\Emotional-Support-Conversation-main"
     }
   ],
   "attachments": [
@@ -587,6 +623,22 @@
       "original_filename": "Screenshot 2026-06-10 105238.png",
       "mime_type": "image/png",
       "created_at": "2026-06-10T09:53:46Z"
+    },
+    {
+      "id": 42,
+      "dataset_id": 32,
+      "filename": "32_7db373f35e5e4b80b79e850a8cc28fed_Screenshot_2026-10-10_212800.png",
+      "original_filename": "Screenshot 2026-10-10 212800.png",
+      "mime_type": "image/png",
+      "created_at": "2026-10-10T20:28:11Z"
+    },
+    {
+      "id": 43,
+      "dataset_id": 33,
+      "filename": "33_155d25456d30452089dd83c5ed72b26b_Screenshot_2026-10-10_213758.png",
+      "original_filename": "Screenshot 2026-10-10 213758.png",
+      "mime_type": "image/png",
+      "created_at": "2026-10-10T20:38:34Z"
     }
   ],
   "taxonomy": [
